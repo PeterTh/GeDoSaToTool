@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeDoSaToTool", "GeDoSaToTool.csproj", "{BBB895EB-2CD4-4131-B4DB-89BFB7FC0D62}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeDoSaToTexM", "..\GeDoSaToTexM\GeDoSaToTexM.csproj", "{A41BD403-3643-429B-B15A-22D6F866E709}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BBB895EB-2CD4-4131-B4DB-89BFB7FC0D62}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBB895EB-2CD4-4131-B4DB-89BFB7FC0D62}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBB895EB-2CD4-4131-B4DB-89BFB7FC0D62}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBB895EB-2CD4-4131-B4DB-89BFB7FC0D62}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A41BD403-3643-429B-B15A-22D6F866E709}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A41BD403-3643-429B-B15A-22D6F866E709}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A41BD403-3643-429B-B15A-22D6F866E709}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A41BD403-3643-429B-B15A-22D6F866E709}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
