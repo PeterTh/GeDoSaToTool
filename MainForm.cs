@@ -100,7 +100,7 @@ namespace GeDoSaToTool
             hk.Windows = true;
             hk.Pressed += delegate {
                 if (deactivateButton.Enabled) deactivateButton_Click(null, null);
-                else activateButton_Click(null, null); 
+                else activateButton_Click(null, null);
             };
             if (!hk.GetCanRegister(this))
             {
@@ -117,6 +117,21 @@ namespace GeDoSaToTool
 
             settings.AddRange(native.getSettingsString().Split(','));
         }
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == Native.WM_SHOWME)
+            {
+                ShowMe();
+            }
+            base.WndProc(ref m);
+        }
+
+        public void ShowMe()
+        {
+            notifyIcon_MouseDoubleClick(null, null);
+            TopMost = true;
+            TopMost = false;
+        }
 
         private void MainForm_Resize(object sender, EventArgs e)
         {
@@ -125,6 +140,7 @@ namespace GeDoSaToTool
                 notifyIcon.Visible = true;
                 notifyIcon.ShowBalloonTip(3000, "GeDoSaTo Minimized", "Double-click to restore", ToolTipIcon.Info);
                 this.ShowInTaskbar = false;
+                new MessageWindow(this);
             }
         }
 
@@ -307,6 +323,15 @@ class Native
 
     [DllImport("kernel32", CharSet = CharSet.Ansi, ExactSpelling = true, SetLastError = true)]
     static extern IntPtr GetProcAddress(IntPtr hModule, string procName);
+
+    // Single instance stuff
+
+    public const int HWND_BROADCAST = 0xffff;
+    public static readonly int WM_SHOWME = RegisterWindowMessage("WM_SHOWME");
+    [DllImport("user32")]
+    public static extern bool PostMessage(IntPtr hwnd, int msg, IntPtr wparam, IntPtr lparam);
+    [DllImport("user32")]
+    public static extern int RegisterWindowMessage(string message);
 
     // GeDoSaTo
 
