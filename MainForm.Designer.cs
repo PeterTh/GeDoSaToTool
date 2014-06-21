@@ -314,6 +314,7 @@
             this.MaximizeBox = false;
             this.Name = "MainForm";
             this.Text = "GeDoSaTo";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBox1.ResumeLayout(false);

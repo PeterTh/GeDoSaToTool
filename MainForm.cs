@@ -283,6 +283,11 @@ namespace GeDoSaToTool
         {
             new TextForm("config\\blacklist.txt", true).Show();
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            deactivateButton_Click(sender, e);
+        }
     }
 }
 
