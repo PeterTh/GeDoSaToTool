@@ -51,6 +51,8 @@
             this.whitelistButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.postButton = new System.Windows.Forms.Button();
+            this.altPostButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -225,7 +227,7 @@
             // settingsButton
             // 
             this.settingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsButton.Location = new System.Drawing.Point(512, 162);
+            this.settingsButton.Location = new System.Drawing.Point(254, 213);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(123, 22);
             this.settingsButton.TabIndex = 11;
@@ -236,7 +238,7 @@
             // keybindingsButton
             // 
             this.keybindingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.keybindingsButton.Location = new System.Drawing.Point(512, 190);
+            this.keybindingsButton.Location = new System.Drawing.Point(254, 241);
             this.keybindingsButton.Name = "keybindingsButton";
             this.keybindingsButton.Size = new System.Drawing.Size(123, 22);
             this.keybindingsButton.TabIndex = 12;
@@ -247,7 +249,7 @@
             // blacklistButton
             // 
             this.blacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.blacklistButton.Location = new System.Drawing.Point(512, 246);
+            this.blacklistButton.Location = new System.Drawing.Point(512, 241);
             this.blacklistButton.Name = "blacklistButton";
             this.blacklistButton.Size = new System.Drawing.Size(123, 22);
             this.blacklistButton.TabIndex = 14;
@@ -258,7 +260,7 @@
             // whitelistButton
             // 
             this.whitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.whitelistButton.Location = new System.Drawing.Point(512, 218);
+            this.whitelistButton.Location = new System.Drawing.Point(512, 213);
             this.whitelistButton.Name = "whitelistButton";
             this.whitelistButton.Size = new System.Drawing.Size(123, 22);
             this.whitelistButton.TabIndex = 13;
@@ -271,7 +273,7 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.whitelistRadioButton);
             this.groupBox1.Controls.Add(this.blacklistRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(512, 74);
+            this.groupBox1.Location = new System.Drawing.Point(512, 138);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(123, 69);
             this.groupBox1.TabIndex = 17;
@@ -289,11 +291,35 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Injection Options";
             // 
+            // postButton
+            // 
+            this.postButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.postButton.Location = new System.Drawing.Point(383, 213);
+            this.postButton.Name = "postButton";
+            this.postButton.Size = new System.Drawing.Size(123, 22);
+            this.postButton.TabIndex = 19;
+            this.postButton.Text = "Edit Postprocessing";
+            this.postButton.UseVisualStyleBackColor = true;
+            this.postButton.Click += new System.EventHandler(this.postButton_Click);
+            // 
+            // altPostButton
+            // 
+            this.altPostButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.altPostButton.Location = new System.Drawing.Point(383, 241);
+            this.altPostButton.Name = "altPostButton";
+            this.altPostButton.Size = new System.Drawing.Size(123, 22);
+            this.altPostButton.TabIndex = 20;
+            this.altPostButton.Text = "Edit Alt. Postproc.";
+            this.altPostButton.UseVisualStyleBackColor = true;
+            this.altPostButton.Click += new System.EventHandler(this.altPostButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.altPostButton);
+            this.Controls.Add(this.postButton);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.blacklistButton);
@@ -349,6 +375,8 @@
         private System.Windows.Forms.RadioButton defaultInjectionRadioButton;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Button postButton;
+        private System.Windows.Forms.Button altPostButton;
     }
 }
 

@@ -117,6 +117,12 @@ namespace GeDoSaToTool
 
             settings.AddRange(native.getSettingsString().Split(','));
         }
+
+        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            deactivateButton_Click(sender, e);
+        }
+
         protected override void WndProc(ref Message m)
         {
             if (m.Msg == Native.WM_SHOWME)
@@ -284,9 +290,14 @@ namespace GeDoSaToTool
             new TextForm("config\\blacklist.txt", true).Show();
         }
 
-        private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
+        private void postButton_Click(object sender, EventArgs e)
         {
-            deactivateButton_Click(sender, e);
+            new TextForm("assets\\post.fx", true).Show();
+        }
+
+        private void altPostButton_Click(object sender, EventArgs e)
+        {
+            new TextForm("assets\\post_asmodean.fx", true).Show();
         }
     }
 }
