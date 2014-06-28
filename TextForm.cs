@@ -18,6 +18,7 @@ namespace GeDoSaToTool
         TextStyle linkStyle = new TextStyle(Brushes.Blue, null, FontStyle.Underline);
         TextStyle boldStyle = new TextStyle(null, null, FontStyle.Bold);
         TextStyle italicStyle = new TextStyle(null, null, FontStyle.Italic);
+        TextStyle defineStyle = new TextStyle(Brushes.DarkBlue, null, FontStyle.Regular);
         TextStyle keywordStyle = new TextStyle(Brushes.DarkRed, null, FontStyle.Bold);
         TextStyle fadedStyle = new TextStyle(SystemBrushes.ControlLight, null, FontStyle.Bold);
         TextStyle commentStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Italic);
@@ -26,7 +27,7 @@ namespace GeDoSaToTool
         string fileName, keywordRegex = "BASE_KWD";
 
         List<string> keywords = new List<string>();
-        bool editable;
+        bool editable, shader;
 
         private void LoadFile(string fn)
         {
@@ -40,6 +41,7 @@ namespace GeDoSaToTool
         {
             InitializeComponent();
             this.editable = editable;
+            shader = Path.GetExtension(fn) == ".fx";
 
             // generate KW regex
             if (kws != null) keywords = kws;
@@ -58,10 +60,10 @@ namespace GeDoSaToTool
             else
             {
                 // generate profile list if ini file
-                if (Path.GetExtension(fn) == ".ini")
+                if (Path.GetExtension(fn) == ".ini" || Path.GetExtension(fn) == ".fx")
                 {
                     string justfn = Path.GetFileName(fn);
-                    string dir = Path.GetDirectoryName(fn);
+                    string dir = Path.GetDirectoryName(fn).Replace("assets","config");
                     foreach (var d in Directory.EnumerateDirectories(dir))
                     {
                         var profilefn = Path.Combine(d, justfn);
@@ -80,6 +82,17 @@ namespace GeDoSaToTool
                 popupMenu.Items.SetAutocompleteItems(keywords);
                 popupMenu.Items.MaximumSize = new System.Drawing.Size(200, 300);
                 popupMenu.Items.Width = 200;
+
+                // adjust for shaders
+                if (shader)
+                {
+                    fastColoredTextBox.ShowLineNumbers = true;
+                    fastColoredTextBox.HighlightFoldingIndicator = true;
+                    fastColoredTextBox.LeftBracket = '(';
+                    fastColoredTextBox.RightBracket = ')';
+                    fastColoredTextBox.LeftBracket2 = '{';
+                    fastColoredTextBox.RightBracket2 = '}';
+                }
             }
         }
 
@@ -96,29 +109,49 @@ namespace GeDoSaToTool
         {
             buttonSave.Enabled = true;
 
-            e.ChangedRange.ClearStyle(commentHeaderStyle);
-            e.ChangedRange.SetStyle(commentHeaderStyle, @"#{40,}[^\n]*\n[^\n]*#.*$", RegexOptions.Multiline);
-            e.ChangedRange.SetStyle(commentHeaderStyle, @"^## \w[^\n]*", RegexOptions.Multiline);
+            if (!shader)
+            {
+                e.ChangedRange.ClearStyle(commentHeaderStyle);
+                e.ChangedRange.SetStyle(commentHeaderStyle, @"#{40,}[^\n]*\n[^\n]*#.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(commentHeaderStyle, @"^## \w[^\n]*", RegexOptions.Multiline);
 
-            e.ChangedRange.ClearStyle(commentStyle);
-            e.ChangedRange.SetStyle(commentStyle, @"#.*$", RegexOptions.Multiline);
+                e.ChangedRange.ClearStyle(commentStyle);
+                e.ChangedRange.SetStyle(commentStyle, @"#.*$", RegexOptions.Multiline);
 
-            e.ChangedRange.ClearStyle(linkStyle);
-            e.ChangedRange.SetStyle(linkStyle, @"\w+@\w+\.\w+");
-            e.ChangedRange.SetStyle(linkStyle, @"http:[^\s]*");
+                e.ChangedRange.ClearStyle(linkStyle);
+                e.ChangedRange.SetStyle(linkStyle, @"\w+@\w+\.\w+");
+                e.ChangedRange.SetStyle(linkStyle, @"http:[^\s]*");
 
-            e.ChangedRange.ClearStyle(boldStyle);
-            e.ChangedRange.SetStyle(boldStyle, @"\*([^\n]+\n*){1,3}\*", RegexOptions.Multiline);
-            e.ChangedRange.SetStyle(boldStyle, @"^[^\n]+\n*(?=^={5,}\s*$)", RegexOptions.Multiline);
+                e.ChangedRange.ClearStyle(boldStyle);
+                e.ChangedRange.SetStyle(boldStyle, @"\*([^\n]+\n*){1,3}\*", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(boldStyle, @"^[^\n]+\n*(?=^={5,}\s*$)", RegexOptions.Multiline);
 
-            e.ChangedRange.ClearStyle(fadedStyle);
-            e.ChangedRange.SetStyle(fadedStyle, @"^={5,}\s*$", RegexOptions.Multiline);
+                e.ChangedRange.ClearStyle(fadedStyle);
+                e.ChangedRange.SetStyle(fadedStyle, @"^={5,}\s*$", RegexOptions.Multiline);
 
-            e.ChangedRange.ClearStyle(italicStyle);
-            e.ChangedRange.SetStyle(italicStyle, @"^.*:\s*$\n*(?=-|1\))", RegexOptions.Multiline);
+                e.ChangedRange.ClearStyle(italicStyle);
+                e.ChangedRange.SetStyle(italicStyle, @"^.*:\s*$\n*(?=-|1\))", RegexOptions.Multiline);
 
-            e.ChangedRange.ClearStyle(keywordStyle);
-            e.ChangedRange.SetStyle(keywordStyle, keywordRegex);
+                e.ChangedRange.ClearStyle(keywordStyle);
+                e.ChangedRange.SetStyle(keywordStyle, keywordRegex);
+            }
+            else
+            {
+                e.ChangedRange.ClearStyle(commentStyle);
+                e.ChangedRange.SetStyle(commentStyle, @"/\*.*?\*/", RegexOptions.Multiline | RegexOptions.Singleline);
+                e.ChangedRange.SetStyle(commentStyle, @"//.*$", RegexOptions.Multiline);
+
+                e.ChangedRange.ClearStyle(defineStyle);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#define.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#include.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#if.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#ifdef.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#ifndef.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#else.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(defineStyle, @"^\s*#endif.*$", RegexOptions.Multiline);
+
+                e.ChangedRange.SetFoldingMarkers("{", "}");
+            }
         }
 
         private void buttonSave_Click(object sender, EventArgs e)
