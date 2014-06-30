@@ -15,8 +15,9 @@ namespace GeDoSaToTool
 {
     public partial class MainForm : Form
     {
-        const string REG_PATH = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Durante\\GeDoSaTo";
-        const string INJECTION_REG_PATH = "HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Windows";
+        const string REG_PATH = @"HKEY_LOCAL_MACHINE\SOFTWARE\Durante\GeDoSaTo";
+        const string INJECTION_REG_PATH = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows";
+        const string AUTOSTART_REG_PATH = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
 
         static Native native = new Native();
         bool autoActivate = true;
@@ -112,6 +113,10 @@ namespace GeDoSaToTool
                 globalHotkeyLabel.Text = "Global hotkey to toggle: " + hk.ToString();
             }
 
+            // check autostart state
+            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
+            if (key.GetValue("GeDoSaToTool") != null) startupCheckBox.Checked = true;
+
             // activate automatically if set to do so
             if (autoActivate) activateButton_Click(null, null);
 
@@ -172,6 +177,7 @@ namespace GeDoSaToTool
                     appinitString = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
                     string newAppinit = appinitString.Length > 0 ? dllfn + "," + appinitString : dllfn;
                     Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", newAppinit);
+                    Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "LoadAppInit_DLLs", 1);
                     reportLabel.Text = "Activated (alternative injection)";
                 }
                 deactivateButton.Enabled = true;
@@ -298,6 +304,19 @@ namespace GeDoSaToTool
         private void altPostButton_Click(object sender, EventArgs e)
         {
             new TextForm("assets\\post_asmodean.fx", true).Show();
+        }
+
+        private void startupCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
+            if (startupCheckBox.Checked)
+            {
+                key.SetValue("GeDoSaToTool", Application.ExecutablePath.ToString());
+            }
+            else
+            {
+                key.DeleteValue("GeDoSaToTool", false);
+            }
         }
     }
 }

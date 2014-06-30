@@ -53,6 +53,7 @@
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.postButton = new System.Windows.Forms.Button();
             this.altPostButton = new System.Windows.Forms.Button();
+            this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -313,11 +314,23 @@
             this.altPostButton.UseVisualStyleBackColor = true;
             this.altPostButton.Click += new System.EventHandler(this.altPostButton_Click);
             // 
+            // startupCheckBox
+            // 
+            this.startupCheckBox.AutoSize = true;
+            this.startupCheckBox.Location = new System.Drawing.Point(254, 190);
+            this.startupCheckBox.Name = "startupCheckBox";
+            this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
+            this.startupCheckBox.TabIndex = 21;
+            this.startupCheckBox.Text = "Start GeDoSaTo with Windows";
+            this.startupCheckBox.UseVisualStyleBackColor = true;
+            this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.altPostButton);
             this.Controls.Add(this.postButton);
             this.Controls.Add(this.groupBox2);
@@ -377,6 +390,7 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button postButton;
         private System.Windows.Forms.Button altPostButton;
+        private System.Windows.Forms.CheckBox startupCheckBox;
     }
 }
 
