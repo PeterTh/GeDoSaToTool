@@ -21,13 +21,15 @@ namespace GeDoSaToTool
 
         static Native native = new Native();
         bool autoActivate = true;
+        bool startMinimized = false;
 
         List<string> settings = new List<string>();
         string appinitString = "";
 
-        public MainForm(bool autoAct)
+        public MainForm(bool autoAct, bool startMin)
         {
             autoActivate = autoAct;
+            startMinimized = startMin;
             InitializeComponent();
         }
         private bool ContainsUnicodeCharacterOrSpace(string input)
@@ -121,6 +123,13 @@ namespace GeDoSaToTool
             if (autoActivate) activateButton_Click(null, null);
 
             settings.AddRange(native.getSettingsString().Split(','));
+
+            // minimize if requested
+            if (startMinimized)
+            {
+                WindowState = FormWindowState.Minimized;
+                MainForm_Resize(null, null);
+            }
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

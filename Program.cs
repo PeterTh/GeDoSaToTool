@@ -17,7 +17,8 @@ namespace GeDoSaToTool
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 bool autoActivate = !args.Contains("-a");
-                Application.Run(new MainForm(autoActivate));
+                bool startMinimized = args.Contains("-m");
+                Application.Run(new MainForm(autoActivate, startMinimized));
                 mutex.ReleaseMutex();
             } else {
                 // send our Win32 message to make the currently running instance
