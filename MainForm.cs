@@ -32,11 +32,11 @@ namespace GeDoSaToTool
             startMinimized = startMin;
             InitializeComponent();
         }
-        private bool ContainsUnicodeCharacterOrSpace(string input)
+        private bool ContainsUnicodeCharacter(string input)
         {
             const int MaxAnsiCode = 255;
 
-            return input.Any(c => c > MaxAnsiCode || c == ' ');
+            return input.Any(c => c > MaxAnsiCode);
         }
         private bool IsAdministrator()
         {
@@ -49,9 +49,9 @@ namespace GeDoSaToTool
         {
             // startup checks
             string dir = Directory.GetCurrentDirectory() + "\\";
-            if (ContainsUnicodeCharacterOrSpace(dir))
+            if (ContainsUnicodeCharacter(dir))
             {
-                MessageBox.Show("The installation path (" + dir + ") contains special characters or spaces. Please install GeDoSaTo to a path with only ANSI characters and no spaces.",
+                MessageBox.Show("The installation path (" + dir + ") contains special characters. Please install GeDoSaTo to a path with only ANSI characters.",
                     "Installation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close(); 
             }
@@ -320,7 +320,7 @@ namespace GeDoSaToTool
             Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
             if (startupCheckBox.Checked)
             {
-                key.SetValue("GeDoSaToTool", Application.ExecutablePath.ToString());
+                key.SetValue("GeDoSaToTool", Application.ExecutablePath.ToString() + " -m");
             }
             else
             {
