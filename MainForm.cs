@@ -122,6 +122,18 @@ namespace GeDoSaToTool
             // activate automatically if set to do so
             if (autoActivate) activateButton_Click(null, null);
 
+            // disable dangling alternative injection (from improper shutdown)
+            string dllfn = Directory.GetCurrentDirectory() + "\\" + "GeDoSaTo.dll";
+            string initval = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
+            string val = initval.Replace(dllfn + ",", "");
+            val = val.Replace(dllfn, "");
+            if (val != initval)
+            {
+                Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", val);
+                MessageBox.Show("Old registry entries for alternative injection found and cleared. Please make sure to close GeDoSaToTool properly.",
+                    "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             settings.AddRange(native.getSettingsString().Split(','));
 
             // minimize if requested
