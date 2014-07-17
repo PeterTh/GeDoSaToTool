@@ -27,12 +27,12 @@ namespace GeDoSaToTool
         string fileName, keywordRegex = "BASE_KWD";
 
         List<string> keywords = new List<string>();
-        bool editable, shader;
+        bool isEditable, isShader, isList;
 
         private void LoadFile(string fn)
         {
             fileName = fn;
-            Text = "GeDoSaTo Text " + (editable ? "Editor" : "Viewer") + " - " + fileName;
+            Text = "GeDoSaTo Text " + (isEditable ? "Editor" : "Viewer") + " - " + fileName;
             fastColoredTextBox.Text = System.IO.File.ReadAllText(fileName);
             buttonSave.Enabled = false;
         }
@@ -40,8 +40,9 @@ namespace GeDoSaToTool
         public TextForm(string fn, bool editable, List<string> kws = null)
         {
             InitializeComponent();
-            this.editable = editable;
-            shader = Path.GetExtension(fn) == ".fx";
+            isEditable = editable;
+            isShader = Path.GetExtension(fn) == ".fx";
+            isList = Path.GetFileName(fn).Contains("list.txt");
 
             // generate KW regex
             if (kws != null) keywords = kws;
@@ -84,7 +85,7 @@ namespace GeDoSaToTool
                 popupMenu.Items.Width = 200;
 
                 // adjust for shaders
-                if (shader)
+                if (isShader)
                 {
                     fastColoredTextBox.ShowLineNumbers = true;
                     fastColoredTextBox.HighlightFoldingIndicator = true;
@@ -92,6 +93,12 @@ namespace GeDoSaToTool
                     fastColoredTextBox.RightBracket = ')';
                     fastColoredTextBox.LeftBracket2 = '{';
                     fastColoredTextBox.RightBracket2 = '}';
+                }
+
+                // adjust for lists
+                if (isList)
+                {
+                    buttonSort.Visible = true;
                 }
             }
         }
@@ -109,7 +116,7 @@ namespace GeDoSaToTool
         {
             buttonSave.Enabled = true;
 
-            if (!shader)
+            if (!isShader)
             {
                 e.ChangedRange.ClearStyle(commentHeaderStyle);
                 e.ChangedRange.SetStyle(commentHeaderStyle, @"#{40,}[^\n]*\n[^\n]*#.*$", RegexOptions.Multiline);
@@ -134,6 +141,11 @@ namespace GeDoSaToTool
 
                 e.ChangedRange.ClearStyle(keywordStyle);
                 e.ChangedRange.SetStyle(keywordStyle, keywordRegex);
+
+                if (isList)
+                {
+                    e.ChangedRange.SetStyle(keywordStyle, @"\|\|");
+                }
             }
             else
             {
@@ -163,6 +175,19 @@ namespace GeDoSaToTool
         private void buttonClose_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void buttonSort_Click(object sender, EventArgs e)
+        {
+            string t = fastColoredTextBox.Text;
+            var arr = t.Split(new string[] { "\r\n", "\n" }, StringSplitOptions.None);
+            var subset = arr.SkipWhile((s) => s.StartsWith("#") || s.Length == 0);
+            var sslist = subset.ToList();
+            sslist.Sort();
+            var res = arr.TakeWhile((s) => s.StartsWith("#") || s.Length == 0);
+            var reslist = res.ToList();
+            reslist.AddRange(sslist);
+            fastColoredTextBox.Text = String.Join("\r\n", reslist);
         }
 
         private void profileComboBox_SelectedIndexChanged(object sender, EventArgs e)

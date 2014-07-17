@@ -34,6 +34,7 @@
             this.buttonClose = new System.Windows.Forms.Button();
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.profileLabel = new System.Windows.Forms.Label();
+            this.buttonSort = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -117,6 +118,18 @@
             this.profileLabel.Text = "Profile:";
             this.profileLabel.Visible = false;
             // 
+            // buttonSort
+            // 
+            this.buttonSort.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.buttonSort.Location = new System.Drawing.Point(615, 537);
+            this.buttonSort.Name = "buttonSort";
+            this.buttonSort.Size = new System.Drawing.Size(75, 23);
+            this.buttonSort.TabIndex = 1;
+            this.buttonSort.Text = "Sort Entries";
+            this.buttonSort.UseVisualStyleBackColor = true;
+            this.buttonSort.Visible = false;
+            this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
+            // 
             // TextForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -125,6 +138,7 @@
             this.Controls.Add(this.profileLabel);
             this.Controls.Add(this.profileComboBox);
             this.Controls.Add(this.buttonClose);
+            this.Controls.Add(this.buttonSort);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.fastColoredTextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.SizableToolWindow;
@@ -143,6 +157,7 @@
         private System.Windows.Forms.Button buttonClose;
         private System.Windows.Forms.ComboBox profileComboBox;
         private System.Windows.Forms.Label profileLabel;
+        private System.Windows.Forms.Button buttonSort;
 
     }
 }
