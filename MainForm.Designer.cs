@@ -322,6 +322,7 @@
             this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
             this.startupCheckBox.TabIndex = 21;
             this.startupCheckBox.Text = "Start GeDoSaTo with Windows";
+            this.toolTip.SetToolTip(this.startupCheckBox, "NOTE: Only works if UAC is disabled!");
             this.startupCheckBox.UseVisualStyleBackColor = true;
             this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
             // 
