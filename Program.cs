@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,6 +14,7 @@ namespace GeDoSaToTool
         [STAThread]
         static void Main(string[] args)
         {
+            Directory.SetCurrentDirectory(Path.GetDirectoryName(Application.ExecutablePath));
             if(mutex.WaitOne(TimeSpan.Zero, true)) {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
