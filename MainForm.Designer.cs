@@ -40,8 +40,7 @@
             this.whitelistRadioButton = new System.Windows.Forms.RadioButton();
             this.blacklistRadioButton = new System.Windows.Forms.RadioButton();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
-            this.alternativeInjectionradioButton = new System.Windows.Forms.RadioButton();
-            this.defaultInjectionRadioButton = new System.Windows.Forms.RadioButton();
+            this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.linkLabelReadme = new System.Windows.Forms.LinkLabel();
             this.linkLabelVersions = new System.Windows.Forms.LinkLabel();
@@ -50,12 +49,9 @@
             this.blacklistButton = new System.Windows.Forms.Button();
             this.whitelistButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.postButton = new System.Windows.Forms.Button();
             this.altPostButton = new System.Windows.Forms.Button();
-            this.startupCheckBox = new System.Windows.Forms.CheckBox();
             this.groupBox1.SuspendLayout();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
@@ -150,32 +146,17 @@
             this.blacklistRadioButton.UseVisualStyleBackColor = true;
             this.blacklistRadioButton.CheckedChanged += new System.EventHandler(this.blacklistRadioButton_CheckedChanged);
             // 
-            // alternativeInjectionradioButton
+            // startupCheckBox
             // 
-            this.alternativeInjectionradioButton.AutoSize = true;
-            this.alternativeInjectionradioButton.Location = new System.Drawing.Point(13, 45);
-            this.alternativeInjectionradioButton.Name = "alternativeInjectionradioButton";
-            this.alternativeInjectionradioButton.Size = new System.Drawing.Size(179, 17);
-            this.alternativeInjectionradioButton.TabIndex = 16;
-            this.alternativeInjectionradioButton.Text = "Use Alternative Injection Method";
-            this.toolTip.SetToolTip(this.alternativeInjectionradioButton, "Use a registry-based injection method (try this only if the default fails -- e.g." +
-        " with Divinity: Original Sin).");
-            this.alternativeInjectionradioButton.UseVisualStyleBackColor = true;
-            this.alternativeInjectionradioButton.CheckedChanged += new System.EventHandler(this.alternativeInjectionradioButton_CheckedChanged);
-            // 
-            // defaultInjectionRadioButton
-            // 
-            this.defaultInjectionRadioButton.AutoSize = true;
-            this.defaultInjectionRadioButton.Checked = true;
-            this.defaultInjectionRadioButton.Location = new System.Drawing.Point(13, 22);
-            this.defaultInjectionRadioButton.Name = "defaultInjectionRadioButton";
-            this.defaultInjectionRadioButton.Size = new System.Drawing.Size(163, 17);
-            this.defaultInjectionRadioButton.TabIndex = 15;
-            this.defaultInjectionRadioButton.TabStop = true;
-            this.defaultInjectionRadioButton.Text = "Use Default Injection Method";
-            this.toolTip.SetToolTip(this.defaultInjectionRadioButton, "Use the default injection method (recommended).");
-            this.defaultInjectionRadioButton.UseVisualStyleBackColor = true;
-            this.defaultInjectionRadioButton.CheckedChanged += new System.EventHandler(this.defaultInjectionRadioButton_CheckedChanged);
+            this.startupCheckBox.AutoSize = true;
+            this.startupCheckBox.Location = new System.Drawing.Point(254, 190);
+            this.startupCheckBox.Name = "startupCheckBox";
+            this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
+            this.startupCheckBox.TabIndex = 21;
+            this.startupCheckBox.Text = "Start GeDoSaTo with Windows";
+            this.toolTip.SetToolTip(this.startupCheckBox, "NOTE: Only works if UAC is disabled!");
+            this.startupCheckBox.UseVisualStyleBackColor = true;
+            this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
             // 
             // linkLabel
             // 
@@ -274,23 +255,12 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.whitelistRadioButton);
             this.groupBox1.Controls.Add(this.blacklistRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(512, 138);
+            this.groupBox1.Location = new System.Drawing.Point(12, 194);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(123, 69);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Whitelisting Options";
-            // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.defaultInjectionRadioButton);
-            this.groupBox2.Controls.Add(this.alternativeInjectionradioButton);
-            this.groupBox2.Location = new System.Drawing.Point(12, 196);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(202, 72);
-            this.groupBox2.TabIndex = 18;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Injection Options";
             // 
             // postButton
             // 
@@ -314,18 +284,6 @@
             this.altPostButton.UseVisualStyleBackColor = true;
             this.altPostButton.Click += new System.EventHandler(this.altPostButton_Click);
             // 
-            // startupCheckBox
-            // 
-            this.startupCheckBox.AutoSize = true;
-            this.startupCheckBox.Location = new System.Drawing.Point(254, 190);
-            this.startupCheckBox.Name = "startupCheckBox";
-            this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
-            this.startupCheckBox.TabIndex = 21;
-            this.startupCheckBox.Text = "Start GeDoSaTo with Windows";
-            this.toolTip.SetToolTip(this.startupCheckBox, "NOTE: Only works if UAC is disabled!");
-            this.startupCheckBox.UseVisualStyleBackColor = true;
-            this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -334,7 +292,6 @@
             this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.altPostButton);
             this.Controls.Add(this.postButton);
-            this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.blacklistButton);
             this.Controls.Add(this.whitelistButton);
@@ -359,8 +316,6 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -385,10 +340,7 @@
         private System.Windows.Forms.Button keybindingsButton;
         private System.Windows.Forms.Button blacklistButton;
         private System.Windows.Forms.Button whitelistButton;
-        private System.Windows.Forms.RadioButton alternativeInjectionradioButton;
-        private System.Windows.Forms.RadioButton defaultInjectionRadioButton;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button postButton;
         private System.Windows.Forms.Button altPostButton;
         private System.Windows.Forms.CheckBox startupCheckBox;

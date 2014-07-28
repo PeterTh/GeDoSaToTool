@@ -187,20 +187,16 @@ namespace GeDoSaToTool
         {
             try
             {
-                if (defaultInjectionRadioButton.Checked)
-                {
-                    native.activateHook();
-                    reportLabel.Text = "Activated (default injection)";
-                }
-                else
-                {
-                    string dllfn = Directory.GetCurrentDirectory() + "\\" + "GeDoSaTo.dll";
-                    appinitString = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
-                    string newAppinit = appinitString.Length > 0 ? dllfn + "," + appinitString : dllfn;
-                    Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", newAppinit);
-                    Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "LoadAppInit_DLLs", 1);
-                    reportLabel.Text = "Activated (alternative injection)";
-                }
+                // hook injection
+                native.activateHook();
+                // reg injection
+                string dllfn = Directory.GetCurrentDirectory() + "\\" + "GeDoSaTo.dll";
+                appinitString = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
+                string newAppinit = appinitString.Length > 0 ? dllfn + "," + appinitString : dllfn;
+                Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", newAppinit);
+                Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "LoadAppInit_DLLs", 1);
+                // report success
+                reportLabel.Text = "Activated";
                 deactivateButton.Enabled = true;
                 activateButton.Enabled = false;
             }
@@ -210,30 +206,14 @@ namespace GeDoSaToTool
             }
         }
 
-        private void deactivateDefaultInjection()
-        {
-            bool ret = native.deactivateHook();
-            reportLabel.Text = "Deactivated (unhooked " + (ret ? "successfully" : "unsuccessfully") + ")";
-        }
-        private void deactivateAlternativeInjection()
-        {
-            Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", appinitString);
-            reportLabel.Text = "Deactivated";
-        }
-
         private void deactivateButton_Click(object sender, EventArgs e)
         {
             deactivateButton.Enabled = false;
             activateButton.Enabled = true;
 
-            if (defaultInjectionRadioButton.Checked)
-            {
-                deactivateDefaultInjection();
-            }
-            else
-            {
-                deactivateAlternativeInjection();
-            }
+            Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", appinitString);
+            bool ret = native.deactivateHook();
+            reportLabel.Text = "Deactivated (unhooked " + (ret ? "successfully" : "unsuccessfully") + ")";
         }
 
         private void whitelistRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -256,28 +236,6 @@ namespace GeDoSaToTool
                 Microsoft.Win32.Registry.SetValue(REG_PATH, "UseBlacklist", true);
             }
             catch (Exception) { }
-        }
-
-        private void defaultInjectionRadioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!defaultInjectionRadioButton.Checked) return;
-            alternativeInjectionradioButton.Checked = false;
-            if (deactivateButton.Enabled)
-            {
-                deactivateAlternativeInjection();
-                activateButton_Click(sender, e);
-            }
-        }
-        private void alternativeInjectionradioButton_CheckedChanged(object sender, EventArgs e)
-        {
-            if (!alternativeInjectionradioButton.Checked) return;
-            defaultInjectionRadioButton.Checked = false;
-            if (deactivateButton.Enabled)
-            {
-                deactivateDefaultInjection();
-                activateButton_Click(sender, e);
-            }
-
         }
 
         private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)

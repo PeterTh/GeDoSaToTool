@@ -517,9 +517,6 @@ This is the safer option, but requires you to add each game you want to use GeDo
     <value>Use assets/blacklist.txt to *exclude* processes from being affected by GeDoSaTo (all other programs are included by default).
 WARNING: this could potentially negatively affect or even crash any application on your system.</value>
   </data>
-  <metadata name="toolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>123, 17</value>
-  </metadata>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAEAgIAAAAEAIAAJWQAAFgAAAIlQTkcNChoKAAAADUlIRFIAAACAAAAAgAgGAAAAwz5hywAAAAlw
