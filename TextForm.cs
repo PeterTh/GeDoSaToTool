@@ -184,6 +184,7 @@ namespace GeDoSaToTool
             var subset = arr.SkipWhile((s) => s.StartsWith("#") || s.Length == 0);
             var sslist = subset.ToList();
             sslist.Sort();
+            sslist.RemoveAll((s) => s.Trim().Length == 0);
             var res = arr.TakeWhile((s) => s.StartsWith("#") || s.Length == 0);
             var reslist = res.ToList();
             reslist.AddRange(sslist);
