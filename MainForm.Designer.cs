@@ -51,6 +51,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.postButton = new System.Windows.Forms.Button();
             this.altPostButton = new System.Windows.Forms.Button();
+            this.unloadEventLabel = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -72,7 +73,7 @@
             // installLabel
             // 
             this.installLabel.AutoSize = true;
-            this.installLabel.Location = new System.Drawing.Point(12, 60);
+            this.installLabel.Location = new System.Drawing.Point(12, 49);
             this.installLabel.Name = "installLabel";
             this.installLabel.Size = new System.Drawing.Size(13, 13);
             this.installLabel.TabIndex = 1;
@@ -105,7 +106,7 @@
             // 
             this.reportLabel.AutoSize = true;
             this.reportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reportLabel.Location = new System.Drawing.Point(12, 105);
+            this.reportLabel.Location = new System.Drawing.Point(12, 83);
             this.reportLabel.Name = "reportLabel";
             this.reportLabel.Size = new System.Drawing.Size(66, 13);
             this.reportLabel.TabIndex = 4;
@@ -114,7 +115,7 @@
             // globalHotkeyLabel
             // 
             this.globalHotkeyLabel.AutoSize = true;
-            this.globalHotkeyLabel.Location = new System.Drawing.Point(12, 150);
+            this.globalHotkeyLabel.Location = new System.Drawing.Point(12, 117);
             this.globalHotkeyLabel.Name = "globalHotkeyLabel";
             this.globalHotkeyLabel.Size = new System.Drawing.Size(74, 13);
             this.globalHotkeyLabel.TabIndex = 5;
@@ -284,11 +285,21 @@
             this.altPostButton.UseVisualStyleBackColor = true;
             this.altPostButton.Click += new System.EventHandler(this.altPostButton_Click);
             // 
+            // unloadEventLabel
+            // 
+            this.unloadEventLabel.AutoSize = true;
+            this.unloadEventLabel.Location = new System.Drawing.Point(12, 151);
+            this.unloadEventLabel.Name = "unloadEventLabel";
+            this.unloadEventLabel.Size = new System.Drawing.Size(72, 13);
+            this.unloadEventLabel.TabIndex = 22;
+            this.unloadEventLabel.Text = "Unload Event";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.unloadEventLabel);
             this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.altPostButton);
             this.Controls.Add(this.postButton);
@@ -344,6 +355,7 @@
         private System.Windows.Forms.Button postButton;
         private System.Windows.Forms.Button altPostButton;
         private System.Windows.Forms.CheckBox startupCheckBox;
+        private System.Windows.Forms.Label unloadEventLabel;
     }
 }
 

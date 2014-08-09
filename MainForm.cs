@@ -10,6 +10,8 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Security.Principal;
+using System.Threading;
+using System.Security.AccessControl;
 
 namespace GeDoSaToTool
 {
@@ -25,6 +27,8 @@ namespace GeDoSaToTool
 
         List<string> settings = new List<string>();
         string appinitString = "";
+
+        EventWaitHandle unloadEvent;
 
         public MainForm(bool autoAct, bool startMin)
         {
@@ -114,6 +118,19 @@ namespace GeDoSaToTool
                 hk.Register(this);
                 globalHotkeyLabel.Text = "Global hotkey to toggle: " + hk.ToString();
             }
+
+            // load event handle
+            try
+            {
+                bool createNewEvent = false;
+                unloadEvent = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\GeDoSaToUnloadEvent", out createNewEvent);
+                unloadEventLabel.Text = "Unload event created (New: " + createNewEvent + ")";
+            }
+            catch (Exception ex)
+            {
+                unloadEventLabel.Text = "Error: Could not create unload event:\n" + ex.Message;
+            }
+
 
             // check autostart state
             Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
@@ -211,8 +228,13 @@ namespace GeDoSaToTool
             deactivateButton.Enabled = false;
             activateButton.Enabled = true;
 
+            // deactivate hooks
             Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", appinitString);
             bool ret = native.deactivateHook();
+
+            // signal unloading
+            unloadEvent.Set();
+
             reportLabel.Text = "Deactivated (unhooked " + (ret ? "successfully" : "unsuccessfully") + ")";
         }
 
