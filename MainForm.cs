@@ -124,6 +124,10 @@ namespace GeDoSaToTool
             {
                 bool createNewEvent = false;
                 unloadEvent = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\GeDoSaToUnloadEvent", out createNewEvent);
+                if(!createNewEvent) {
+                    unloadEvent.Set();
+                    unloadEvent.Reset();
+                }
                 unloadEventLabel.Text = "Unload event created (New: " + createNewEvent + ")";
             }
             catch (Exception ex)
