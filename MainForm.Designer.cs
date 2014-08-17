@@ -53,6 +53,8 @@
             this.altPostButton = new System.Windows.Forms.Button();
             this.unloadEventLabel = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
+            this.logsButton = new System.Windows.Forms.Button();
+            this.screenshotsButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -151,7 +153,7 @@
             // startupCheckBox
             // 
             this.startupCheckBox.AutoSize = true;
-            this.startupCheckBox.Location = new System.Drawing.Point(254, 190);
+            this.startupCheckBox.Location = new System.Drawing.Point(203, 253);
             this.startupCheckBox.Name = "startupCheckBox";
             this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
             this.startupCheckBox.TabIndex = 21;
@@ -165,11 +167,11 @@
             this.linkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabel.AutoSize = true;
-            this.linkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabel.Location = new System.Drawing.Point(233, 306);
+            this.linkLabel.Location = new System.Drawing.Point(225, 306);
             this.linkLabel.Name = "linkLabel";
-            this.linkLabel.Size = new System.Drawing.Size(181, 12);
+            this.linkLabel.Size = new System.Drawing.Size(213, 13);
             this.linkLabel.TabIndex = 8;
             this.linkLabel.TabStop = true;
             this.linkLabel.Text = "Donate to support GeDoSaTo development";
@@ -183,7 +185,7 @@
             this.linkLabelReadme.AutoSize = true;
             this.linkLabelReadme.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabelReadme.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabelReadme.Location = new System.Drawing.Point(170, 283);
+            this.linkLabelReadme.Location = new System.Drawing.Point(156, 281);
             this.linkLabelReadme.Name = "linkLabelReadme";
             this.linkLabelReadme.Size = new System.Drawing.Size(228, 20);
             this.linkLabelReadme.TabIndex = 9;
@@ -197,11 +199,11 @@
             this.linkLabelVersions.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.linkLabelVersions.AutoSize = true;
-            this.linkLabelVersions.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.linkLabelVersions.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.linkLabelVersions.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
-            this.linkLabelVersions.Location = new System.Drawing.Point(402, 287);
+            this.linkLabelVersions.Location = new System.Drawing.Point(390, 281);
             this.linkLabelVersions.Name = "linkLabelVersions";
-            this.linkLabelVersions.Size = new System.Drawing.Size(69, 12);
+            this.linkLabelVersions.Size = new System.Drawing.Size(116, 20);
             this.linkLabelVersions.TabIndex = 10;
             this.linkLabelVersions.TabStop = true;
             this.linkLabelVersions.Text = "Version History";
@@ -211,7 +213,7 @@
             // settingsButton
             // 
             this.settingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsButton.Location = new System.Drawing.Point(254, 213);
+            this.settingsButton.Location = new System.Drawing.Point(254, 194);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(123, 22);
             this.settingsButton.TabIndex = 11;
@@ -222,7 +224,7 @@
             // keybindingsButton
             // 
             this.keybindingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.keybindingsButton.Location = new System.Drawing.Point(254, 241);
+            this.keybindingsButton.Location = new System.Drawing.Point(254, 222);
             this.keybindingsButton.Name = "keybindingsButton";
             this.keybindingsButton.Size = new System.Drawing.Size(123, 22);
             this.keybindingsButton.TabIndex = 12;
@@ -233,7 +235,7 @@
             // blacklistButton
             // 
             this.blacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.blacklistButton.Location = new System.Drawing.Point(512, 241);
+            this.blacklistButton.Location = new System.Drawing.Point(512, 222);
             this.blacklistButton.Name = "blacklistButton";
             this.blacklistButton.Size = new System.Drawing.Size(123, 22);
             this.blacklistButton.TabIndex = 14;
@@ -244,7 +246,7 @@
             // whitelistButton
             // 
             this.whitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.whitelistButton.Location = new System.Drawing.Point(512, 213);
+            this.whitelistButton.Location = new System.Drawing.Point(512, 194);
             this.whitelistButton.Name = "whitelistButton";
             this.whitelistButton.Size = new System.Drawing.Size(123, 22);
             this.whitelistButton.TabIndex = 13;
@@ -267,7 +269,7 @@
             // postButton
             // 
             this.postButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.postButton.Location = new System.Drawing.Point(383, 213);
+            this.postButton.Location = new System.Drawing.Point(383, 194);
             this.postButton.Name = "postButton";
             this.postButton.Size = new System.Drawing.Size(123, 22);
             this.postButton.TabIndex = 19;
@@ -278,7 +280,7 @@
             // altPostButton
             // 
             this.altPostButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.altPostButton.Location = new System.Drawing.Point(383, 241);
+            this.altPostButton.Location = new System.Drawing.Point(383, 222);
             this.altPostButton.Name = "altPostButton";
             this.altPostButton.Size = new System.Drawing.Size(123, 22);
             this.altPostButton.TabIndex = 20;
@@ -298,7 +300,7 @@
             // updateButton
             // 
             this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.updateButton.Location = new System.Drawing.Point(512, 173);
+            this.updateButton.Location = new System.Drawing.Point(512, 154);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(123, 34);
             this.updateButton.TabIndex = 23;
@@ -306,11 +308,35 @@
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
+            // logsButton
+            // 
+            this.logsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.logsButton.Location = new System.Drawing.Point(383, 250);
+            this.logsButton.Name = "logsButton";
+            this.logsButton.Size = new System.Drawing.Size(123, 22);
+            this.logsButton.TabIndex = 24;
+            this.logsButton.Text = "Show Log Files";
+            this.logsButton.UseVisualStyleBackColor = true;
+            this.logsButton.Click += new System.EventHandler(this.logsButton_Click);
+            // 
+            // screenshotsButton
+            // 
+            this.screenshotsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.screenshotsButton.Location = new System.Drawing.Point(512, 250);
+            this.screenshotsButton.Name = "screenshotsButton";
+            this.screenshotsButton.Size = new System.Drawing.Size(123, 22);
+            this.screenshotsButton.TabIndex = 24;
+            this.screenshotsButton.Text = "Show Screenshots";
+            this.screenshotsButton.UseVisualStyleBackColor = true;
+            this.screenshotsButton.Click += new System.EventHandler(this.screenshotsButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.screenshotsButton);
+            this.Controls.Add(this.logsButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.unloadEventLabel);
             this.Controls.Add(this.startupCheckBox);
@@ -370,6 +396,8 @@
         private System.Windows.Forms.CheckBox startupCheckBox;
         private System.Windows.Forms.Label unloadEventLabel;
         private System.Windows.Forms.Button updateButton;
+        private System.Windows.Forms.Button logsButton;
+        private System.Windows.Forms.Button screenshotsButton;
     }
 }
 

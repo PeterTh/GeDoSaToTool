@@ -381,6 +381,16 @@ namespace GeDoSaToTool
             update.Start();
             Close();
         }
+
+        private void logsButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(Directory.GetCurrentDirectory() + "\\logs");
+        }
+
+        private void screenshotsButton_Click(object sender, EventArgs e)
+        {
+            Process.Start(Directory.GetCurrentDirectory() + "\\screens");
+        }
     }
 }
 
