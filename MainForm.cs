@@ -126,7 +126,11 @@ namespace GeDoSaToTool
             try
             {
                 bool createNewEvent = false;
-                unloadEvent = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\GeDoSaToUnloadEvent", out createNewEvent);
+                var users = new SecurityIdentifier(WellKnownSidType.BuiltinUsersSid, null);
+                var rule = new EventWaitHandleAccessRule(users, EventWaitHandleRights.Synchronize | EventWaitHandleRights.Modify | EventWaitHandleRights.FullControl, AccessControlType.Allow);
+                var security = new EventWaitHandleSecurity();
+                security.AddAccessRule(rule);
+                unloadEvent = new EventWaitHandle(false, EventResetMode.ManualReset, "Global\\GeDoSaToUnloadEvent", out createNewEvent, security);
                 if(!createNewEvent) {
                     unloadEvent.Set();
                     unloadEvent.Reset();
