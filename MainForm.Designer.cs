@@ -52,6 +52,7 @@
             this.postButton = new System.Windows.Forms.Button();
             this.altPostButton = new System.Windows.Forms.Button();
             this.unloadEventLabel = new System.Windows.Forms.Label();
+            this.updateButton = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -294,11 +295,23 @@
             this.unloadEventLabel.TabIndex = 22;
             this.unloadEventLabel.Text = "Unload Event";
             // 
+            // updateButton
+            // 
+            this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.updateButton.Location = new System.Drawing.Point(512, 173);
+            this.updateButton.Name = "updateButton";
+            this.updateButton.Size = new System.Drawing.Size(123, 34);
+            this.updateButton.TabIndex = 23;
+            this.updateButton.Text = "Update";
+            this.updateButton.UseVisualStyleBackColor = true;
+            this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.updateButton);
             this.Controls.Add(this.unloadEventLabel);
             this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.altPostButton);
@@ -356,6 +369,7 @@
         private System.Windows.Forms.Button altPostButton;
         private System.Windows.Forms.CheckBox startupCheckBox;
         private System.Windows.Forms.Label unloadEventLabel;
+        private System.Windows.Forms.Button updateButton;
     }
 }
 

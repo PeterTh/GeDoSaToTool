@@ -12,6 +12,9 @@ using System.IO;
 using System.Security.Principal;
 using System.Threading;
 using System.Security.AccessControl;
+using System.Net;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace GeDoSaToTool
 {
@@ -163,6 +166,43 @@ namespace GeDoSaToTool
                 WindowState = FormWindowState.Minimized;
                 MainForm_Resize(null, null);
             }
+
+            // check for updates
+            updateButton.Enabled = false;
+            updateButton.Text = "Checking for updates...";
+            ThreadPool.QueueUserWorkItem(delegate {
+                try
+                {
+                    var cli = new WebClient();
+                    string github_version = cli.DownloadString("https://raw.githubusercontent.com/PeterTh/gedosato/master/source/version.cpp");
+                    var buildReg = new Regex(@"const unsigned VER_BUILD = (\d+);");
+                    var verReg = new Regex(@"version \d+\.\d+\.(\d+)");
+                    int current = Int32.Parse(verReg.Match(native.getVersion()).Groups[1].ToString());
+                    int latest = Int32.Parse(buildReg.Match(github_version).Groups[1].ToString());
+                    if (current < latest)
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            updateButton.Enabled = true;
+                            updateButton.Text = "Update to\nbuild " + latest;
+                        });
+                    }
+                    else
+                    {
+                        Invoke((MethodInvoker)delegate
+                        {
+                            updateButton.Text = "Up to date";
+                        });
+                    }
+                }
+                catch (Exception)
+                {
+                    Invoke((MethodInvoker)delegate
+                    {
+                        updateButton.Text = "Error checking for updates (offline?)";
+                    });
+                }
+            });
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -287,7 +327,13 @@ namespace GeDoSaToTool
         private void keybindingsButton_Click(object sender, EventArgs e)
         {
             string[] keys = { "VK_LBUTTON", "VK_RBUTTON", "VK_CANCEL", "VK_MBUTTON", "VK_XBUTTON1", "VK_XBUTTON2", "VK_BACK", "VK_TAB", "VK_CLEAR", "VK_RETURN", "VK_SHIFT", "VK_CONTROL", "VK_MENU", "VK_PAUSE", "VK_CAPITAL", "VK_KANA", "VK_HANGUL", "VK_JUNJA", "VK_FINAL", "VK_HANJA", "VK_KANJI", "VK_ESCAPE", "VK_CONVERT", "VK_NONCONVERT", "VK_ACCEPT", "VK_MODECHANGE", "VK_SPACE", "VK_PRIOR", "VK_NEXT", "VK_END", "VK_HOME", "VK_LEFT", "VK_UP", "VK_RIGHT", "VK_DOWN", "VK_SELECT", "VK_PRINT", "VK_EXECUTE", "VK_SNAPSHOT", "VK_INSERT", "VK_DELETE", "VK_HELP", "VK_0", "VK_1", "VK_2", "VK_3", "VK_4", "VK_5", "VK_6", "VK_7", "VK_8", "VK_9", "VK_A", "VK_B", "VK_C", "VK_D", "VK_E", "VK_F", "VK_G", "VK_H", "VK_I", "VK_J", "VK_K", "VK_L", "VK_M", "VK_N", "VK_O", "VK_P", "VK_Q", "VK_R", "VK_S", "VK_T", "VK_U", "VK_V", "VK_W", "VK_X", "VK_Y", "VK_Z", "VK_LWIN", "VK_RWIN", "VK_APPS", "VK_SLEEP", "VK_NUMPAD0", "VK_NUMPAD1", "VK_NUMPAD2", "VK_NUMPAD3", "VK_NUMPAD4", "VK_NUMPAD5", "VK_NUMPAD6", "VK_NUMPAD7", "VK_NUMPAD8", "VK_NUMPAD9", "VK_MULTIPLY", "VK_ADD", "VK_SEPARATOR", "VK_SUBTRACT", "VK_DECIMAL", "VK_DIVIDE", "VK_F1", "VK_F2", "VK_F3", "VK_F4", "VK_F5", "VK_F6", "VK_F7", "VK_F8", "VK_F9", "VK_F10", "VK_F11", "VK_F12", "VK_F13", "VK_F14", "VK_F15", "VK_F16", "VK_F17", "VK_F18", "VK_F19", "VK_F20", "VK_F21", "VK_F22", "VK_F23", "VK_F24", "VK_NUMLOCK", "VK_SCROLL", "VK_LSHIFT", "VK_RSHIFT", "VK_LCONTROL", "VK_RCONTROL", "VK_LMENU", "VK_RMENU" };
+            string[] buttons = { "DPAD_UP", "DPAD_DOWN", "DPAD_LEFT", "DPAD_RIGHT", "START", "BACK", "LEFT_THUMB", "RIGHT_THUMB", "LEFT_SHOULDER", "RIGHT_SHOULDER", "A", "B", "X", "Y" };
             var keyList = new List<string>(keys);
+            for(int i = 0; i < 4; ++i)
+            {
+                var xbtns = Array.ConvertAll(buttons, btn => "X" + i + "_" + btn).ToArray();
+                keyList.AddRange(xbtns);
+            }
             new TextForm("config\\GeDoSaToKeys.ini", true, keyList).Show();
         }
 
@@ -322,6 +368,14 @@ namespace GeDoSaToTool
             {
                 key.DeleteValue("GeDoSaToTool", false);
             }
+        }
+
+        private void updateButton_Click(object sender, EventArgs e)
+        {
+            Process update = new Process();
+            update.StartInfo.FileName = @"GeDoSaToUpdater.exe";
+            update.Start();
+            Close();
         }
     }
 }
@@ -418,6 +472,11 @@ class Native
 
     public string getVersionText()
     {
+        return "GeDoSaTo.dll loaded, " + getVersion();
+    }
+
+    public string getVersion()
+    {
         IntPtr ptr;
         try
         {
@@ -427,7 +486,7 @@ class Native
         {
             return "Error loading GeDoSaTo.dll: \n" + e.Message;
         }
-        return "GeDoSaTo.dll loaded, " + System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+        return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
     }
 
     public string getSettingsString()
