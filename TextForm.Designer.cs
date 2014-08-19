@@ -35,6 +35,10 @@
             this.profileComboBox = new System.Windows.Forms.ComboBox();
             this.profileLabel = new System.Windows.Forms.Label();
             this.buttonSort = new System.Windows.Forms.Button();
+            this.filterLabel = new System.Windows.Forms.Label();
+            this.filterTextBox = new System.Windows.Forms.TextBox();
+            this.addProfileButton = new System.Windows.Forms.Button();
+            this.userButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -102,7 +106,7 @@
             this.profileComboBox.FormattingEnabled = true;
             this.profileComboBox.Location = new System.Drawing.Point(57, 539);
             this.profileComboBox.Name = "profileComboBox";
-            this.profileComboBox.Size = new System.Drawing.Size(323, 21);
+            this.profileComboBox.Size = new System.Drawing.Size(294, 21);
             this.profileComboBox.TabIndex = 3;
             this.profileComboBox.Visible = false;
             this.profileComboBox.SelectedIndexChanged += new System.EventHandler(this.profileComboBox_SelectedIndexChanged);
@@ -130,11 +134,57 @@
             this.buttonSort.Visible = false;
             this.buttonSort.Click += new System.EventHandler(this.buttonSort_Click);
             // 
+            // filterLabel
+            // 
+            this.filterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.filterLabel.AutoSize = true;
+            this.filterLabel.Location = new System.Drawing.Point(417, 543);
+            this.filterLabel.Name = "filterLabel";
+            this.filterLabel.Size = new System.Drawing.Size(32, 13);
+            this.filterLabel.TabIndex = 6;
+            this.filterLabel.Text = "Filter:";
+            this.filterLabel.Visible = false;
+            // 
+            // filterTextBox
+            // 
+            this.filterTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.filterTextBox.Location = new System.Drawing.Point(455, 539);
+            this.filterTextBox.Name = "filterTextBox";
+            this.filterTextBox.Size = new System.Drawing.Size(133, 20);
+            this.filterTextBox.TabIndex = 7;
+            this.filterTextBox.Visible = false;
+            this.filterTextBox.TextChanged += new System.EventHandler(this.filterTextBox_TextChanged);
+            // 
+            // addProfileButton
+            // 
+            this.addProfileButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.addProfileButton.Location = new System.Drawing.Point(385, 538);
+            this.addProfileButton.Name = "addProfileButton";
+            this.addProfileButton.Size = new System.Drawing.Size(23, 23);
+            this.addProfileButton.TabIndex = 8;
+            this.addProfileButton.Text = "+";
+            this.addProfileButton.UseVisualStyleBackColor = true;
+            // 
+            // userButton
+            // 
+            this.userButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.userButton.Location = new System.Drawing.Point(357, 538);
+            this.userButton.Name = "userButton";
+            this.userButton.Size = new System.Drawing.Size(23, 23);
+            this.userButton.TabIndex = 9;
+            this.userButton.Text = "U";
+            this.userButton.UseVisualStyleBackColor = true;
+            this.userButton.Click += new System.EventHandler(this.userButton_Click);
+            // 
             // TextForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 566);
+            this.Controls.Add(this.userButton);
+            this.Controls.Add(this.addProfileButton);
+            this.Controls.Add(this.filterTextBox);
+            this.Controls.Add(this.filterLabel);
             this.Controls.Add(this.profileLabel);
             this.Controls.Add(this.profileComboBox);
             this.Controls.Add(this.buttonClose);
@@ -158,6 +208,10 @@
         private System.Windows.Forms.ComboBox profileComboBox;
         private System.Windows.Forms.Label profileLabel;
         private System.Windows.Forms.Button buttonSort;
+        private System.Windows.Forms.Label filterLabel;
+        private System.Windows.Forms.TextBox filterTextBox;
+        private System.Windows.Forms.Button addProfileButton;
+        private System.Windows.Forms.Button userButton;
 
     }
 }

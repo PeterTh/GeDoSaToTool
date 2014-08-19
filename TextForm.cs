@@ -23,8 +23,9 @@ namespace GeDoSaToTool
         TextStyle fadedStyle = new TextStyle(SystemBrushes.ControlLight, null, FontStyle.Bold);
         TextStyle commentStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Italic);
         TextStyle commentHeaderStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Italic | FontStyle.Bold);
+
         AutocompleteMenu popupMenu;
-        string fileName, keywordRegex = "BASE_KWD";
+        string fileName, startFn, keywordRegex = "BASE_KWD";
 
         List<string> keywords = new List<string>();
         bool isEditable, isShader, isList;
@@ -35,12 +36,14 @@ namespace GeDoSaToTool
             Text = "GeDoSaTo Text " + (isEditable ? "Editor" : "Viewer") + " - " + fileName;
             fastColoredTextBox.Text = System.IO.File.ReadAllText(fileName);
             buttonSave.Enabled = false;
+            userButton.Enabled = !fn.Contains("_user.");
         }
 
         public TextForm(string fn, bool editable, List<string> kws = null)
         {
             InitializeComponent();
             isEditable = editable;
+            startFn = fn;
             isShader = Path.GetExtension(fn) == ".fx";
             isList = Path.GetFileName(fn).Contains("list.txt");
 
@@ -63,18 +66,12 @@ namespace GeDoSaToTool
                 // generate profile list if ini file
                 if (Path.GetExtension(fn) == ".ini" || Path.GetExtension(fn) == ".fx")
                 {
-                    string justfn = Path.GetFileName(fn);
-                    string dir = Path.GetDirectoryName(fn).Replace("assets","config");
-                    foreach (var d in Directory.EnumerateDirectories(dir))
-                    {
-                        var profilefn = Path.Combine(d, justfn);
-                        if (File.Exists(profilefn))
-                        {
-                            profileComboBox.Items.Add(profilefn);
-                        }
-                    }
+                    filterTextBox_TextChanged(null, null);
                     profileComboBox.Visible = true;
                     profileLabel.Visible = true;
+
+                    filterLabel.Visible = true;
+                    filterTextBox.Visible = true;
                 }
 
                 // create autocompletion menu
@@ -194,6 +191,52 @@ namespace GeDoSaToTool
         private void profileComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             LoadFile(profileComboBox.Text);
+        }
+
+        private void filterTextBox_TextChanged(object sender, EventArgs e)
+        {
+            profileComboBox.Items.Clear();
+            string filter = filterTextBox.Text.Trim();
+            if (filter.Length == 0) profileComboBox.Items.Add(startFn);
+            string justfn = Path.GetFileName(startFn);
+            string dir = Path.GetDirectoryName(startFn).Replace("assets", "config");
+            foreach (var d in Directory.EnumerateDirectories(dir))
+            {
+                var profilefn = Path.Combine(d, justfn);
+                if (File.Exists(profilefn) && (filter.Length == 0 || Regex.IsMatch(profilefn, Regex.Escape(filter).Replace(" ",".*"), RegexOptions.IgnoreCase)))
+                {
+                    profileComboBox.Items.Add(profilefn);
+                }
+            }
+            profileComboBox.SelectedIndex = 0;
+        }
+
+        private void userButton_Click(object sender, EventArgs e)
+        {
+            string ext = Path.GetExtension(fileName);
+            string userfn = fileName.Replace(ext, "_user" + ext);
+            if (File.Exists(userfn))
+            {
+                profileComboBox.Items.Insert(0, userfn);
+                profileComboBox.SelectedIndex = 0;
+                return;
+            }
+            var result = MessageBox.Show("Creating a user profile for " + fileName
+                + "\n\nUser profiles extend base profiles (overriding their settings) and persist over updates of GeDoSaTo. You should use them to store settings specific to your system or your own graphical preferences.\n\nProceed?",
+                "User Profile Creation", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
+            if (result == DialogResult.OK)
+            {
+                string defaultText = "# Lines starting with \"#\" are ignored by GeDoSaTo and used to provide documentation\n"
+                                   + "\n"
+                                   + "# This is a user config file override for " + fileName + "\n"
+                                   + "# Look in that file for possible settings and their documentation\n"
+                                   + "# Add your custom settings below\n\n";
+                var stream = new StreamWriter(userfn);
+                stream.Write(defaultText);
+                stream.Close();
+                profileComboBox.Items.Insert(0, userfn);
+                profileComboBox.SelectedIndex = 0;
+            }
         }
     }
 }
