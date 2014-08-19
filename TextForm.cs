@@ -238,5 +238,35 @@ namespace GeDoSaToTool
                 profileComboBox.SelectedIndex = 0;
             }
         }
+
+        private void addProfileButton_Click(object sender, EventArgs e)
+        {
+            var form = new NewProfileForm(startFn);
+            var res = form.Prompt();
+            if (!string.IsNullOrEmpty(res))
+            {
+                string defaultText = "# Lines starting with \"#\" are ignored by GeDoSaTo and used to provide documentation\n"
+                                   + "\n"
+                                   + "# This is a profile file for " + Path.GetDirectoryName(res).Replace("config\\","") + "\n\n";
+                Directory.CreateDirectory(Path.GetDirectoryName(res));
+                var stream = new StreamWriter(res);
+                stream.Write(defaultText);
+                stream.Close();
+                profileComboBox.Items.Insert(0, res);
+                profileComboBox.SelectedIndex = 0;
+            }
+        }
+
+        private void deleteButton_Click(object sender, EventArgs e)
+        {
+            var res = MessageBox.Show("Are yo usure you want to delete " + fileName + "?", "Delete File", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            if (res == DialogResult.OK)
+            {
+                File.Delete(fileName);
+                var dir = Path.GetDirectoryName(fileName);
+                if (!Directory.EnumerateFileSystemEntries(dir).Any()) Directory.Delete(dir);
+                filterTextBox_TextChanged(null, null);
+            }
+        }
     }
 }

@@ -39,6 +39,7 @@
             this.filterTextBox = new System.Windows.Forms.TextBox();
             this.addProfileButton = new System.Windows.Forms.Button();
             this.userButton = new System.Windows.Forms.Button();
+            this.deleteButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.fastColoredTextBox)).BeginInit();
             this.SuspendLayout();
             // 
@@ -138,7 +139,7 @@
             // 
             this.filterLabel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.filterLabel.AutoSize = true;
-            this.filterLabel.Location = new System.Drawing.Point(417, 543);
+            this.filterLabel.Location = new System.Drawing.Point(444, 543);
             this.filterLabel.Name = "filterLabel";
             this.filterLabel.Size = new System.Drawing.Size(32, 13);
             this.filterLabel.TabIndex = 6;
@@ -148,7 +149,7 @@
             // filterTextBox
             // 
             this.filterTextBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.filterTextBox.Location = new System.Drawing.Point(455, 539);
+            this.filterTextBox.Location = new System.Drawing.Point(482, 539);
             this.filterTextBox.Name = "filterTextBox";
             this.filterTextBox.Size = new System.Drawing.Size(133, 20);
             this.filterTextBox.TabIndex = 7;
@@ -164,6 +165,7 @@
             this.addProfileButton.TabIndex = 8;
             this.addProfileButton.Text = "+";
             this.addProfileButton.UseVisualStyleBackColor = true;
+            this.addProfileButton.Click += new System.EventHandler(this.addProfileButton_Click);
             // 
             // userButton
             // 
@@ -176,11 +178,23 @@
             this.userButton.UseVisualStyleBackColor = true;
             this.userButton.Click += new System.EventHandler(this.userButton_Click);
             // 
+            // deleteButton
+            // 
+            this.deleteButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.deleteButton.Location = new System.Drawing.Point(414, 538);
+            this.deleteButton.Name = "deleteButton";
+            this.deleteButton.Size = new System.Drawing.Size(23, 23);
+            this.deleteButton.TabIndex = 10;
+            this.deleteButton.Text = "-";
+            this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
+            // 
             // TextForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(864, 566);
+            this.Controls.Add(this.deleteButton);
             this.Controls.Add(this.userButton);
             this.Controls.Add(this.addProfileButton);
             this.Controls.Add(this.filterTextBox);
@@ -212,6 +226,7 @@
         private System.Windows.Forms.TextBox filterTextBox;
         private System.Windows.Forms.Button addProfileButton;
         private System.Windows.Forms.Button userButton;
+        private System.Windows.Forms.Button deleteButton;
 
     }
 }
