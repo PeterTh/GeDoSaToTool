@@ -72,6 +72,13 @@ namespace GeDoSaToTool
 
                     filterLabel.Visible = true;
                     filterTextBox.Visible = true;
+
+                    if (Path.GetExtension(fn) == ".ini")
+                    {
+                        addProfileButton.Visible = true;
+                        deleteButton.Visible = true;
+                        userButton.Visible = true;
+                    }
                 }
 
                 // create autocompletion menu
@@ -259,7 +266,7 @@ namespace GeDoSaToTool
 
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            var res = MessageBox.Show("Are yo usure you want to delete " + fileName + "?", "Delete File", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
+            var res = MessageBox.Show("Are you sure you want to delete " + fileName + "?", "Delete File", MessageBoxButtons.OKCancel, MessageBoxIcon.Question);
             if (res == DialogResult.OK)
             {
                 File.Delete(fileName);

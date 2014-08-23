@@ -165,6 +165,7 @@
             this.addProfileButton.TabIndex = 8;
             this.addProfileButton.Text = "+";
             this.addProfileButton.UseVisualStyleBackColor = true;
+            this.addProfileButton.Visible = false;
             this.addProfileButton.Click += new System.EventHandler(this.addProfileButton_Click);
             // 
             // userButton
@@ -176,6 +177,7 @@
             this.userButton.TabIndex = 9;
             this.userButton.Text = "U";
             this.userButton.UseVisualStyleBackColor = true;
+            this.userButton.Visible = false;
             this.userButton.Click += new System.EventHandler(this.userButton_Click);
             // 
             // deleteButton
@@ -187,6 +189,7 @@
             this.deleteButton.TabIndex = 10;
             this.deleteButton.Text = "-";
             this.deleteButton.UseVisualStyleBackColor = true;
+            this.deleteButton.Visible = false;
             this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // TextForm
