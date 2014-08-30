@@ -53,8 +53,10 @@
             this.altPostButton = new System.Windows.Forms.Button();
             this.unloadEventLabel = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
-            this.logsButton = new System.Windows.Forms.Button();
-            this.screenshotsButton = new System.Windows.Forms.Button();
+            this.userWhitelistButton = new System.Windows.Forms.Button();
+            this.userBlacklistButton = new System.Windows.Forms.Button();
+            this.logLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.screenshotsLinkLabel = new System.Windows.Forms.LinkLabel();
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -213,7 +215,7 @@
             // settingsButton
             // 
             this.settingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsButton.Location = new System.Drawing.Point(254, 194);
+            this.settingsButton.Location = new System.Drawing.Point(203, 194);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(123, 22);
             this.settingsButton.TabIndex = 11;
@@ -224,7 +226,7 @@
             // keybindingsButton
             // 
             this.keybindingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.keybindingsButton.Location = new System.Drawing.Point(254, 222);
+            this.keybindingsButton.Location = new System.Drawing.Point(203, 222);
             this.keybindingsButton.Name = "keybindingsButton";
             this.keybindingsButton.Size = new System.Drawing.Size(123, 22);
             this.keybindingsButton.TabIndex = 12;
@@ -235,22 +237,22 @@
             // blacklistButton
             // 
             this.blacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.blacklistButton.Location = new System.Drawing.Point(512, 222);
+            this.blacklistButton.Location = new System.Drawing.Point(461, 222);
             this.blacklistButton.Name = "blacklistButton";
-            this.blacklistButton.Size = new System.Drawing.Size(123, 22);
+            this.blacklistButton.Size = new System.Drawing.Size(74, 22);
             this.blacklistButton.TabIndex = 14;
-            this.blacklistButton.Text = "Edit Blacklist";
+            this.blacklistButton.Text = "Blacklist";
             this.blacklistButton.UseVisualStyleBackColor = true;
             this.blacklistButton.Click += new System.EventHandler(this.blacklistButton_Click);
             // 
             // whitelistButton
             // 
             this.whitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.whitelistButton.Location = new System.Drawing.Point(512, 194);
+            this.whitelistButton.Location = new System.Drawing.Point(461, 194);
             this.whitelistButton.Name = "whitelistButton";
-            this.whitelistButton.Size = new System.Drawing.Size(123, 22);
+            this.whitelistButton.Size = new System.Drawing.Size(74, 22);
             this.whitelistButton.TabIndex = 13;
-            this.whitelistButton.Text = "Edit Whitelist";
+            this.whitelistButton.Text = "Whitelist";
             this.whitelistButton.UseVisualStyleBackColor = true;
             this.whitelistButton.Click += new System.EventHandler(this.whitelistButton_Click);
             // 
@@ -269,7 +271,7 @@
             // postButton
             // 
             this.postButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.postButton.Location = new System.Drawing.Point(383, 194);
+            this.postButton.Location = new System.Drawing.Point(332, 194);
             this.postButton.Name = "postButton";
             this.postButton.Size = new System.Drawing.Size(123, 22);
             this.postButton.TabIndex = 19;
@@ -280,7 +282,7 @@
             // altPostButton
             // 
             this.altPostButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.altPostButton.Location = new System.Drawing.Point(383, 222);
+            this.altPostButton.Location = new System.Drawing.Point(332, 222);
             this.altPostButton.Name = "altPostButton";
             this.altPostButton.Size = new System.Drawing.Size(123, 22);
             this.altPostButton.TabIndex = 20;
@@ -308,35 +310,71 @@
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
             // 
-            // logsButton
+            // userWhitelistButton
             // 
-            this.logsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.logsButton.Location = new System.Drawing.Point(383, 250);
-            this.logsButton.Name = "logsButton";
-            this.logsButton.Size = new System.Drawing.Size(123, 22);
-            this.logsButton.TabIndex = 24;
-            this.logsButton.Text = "Show Log Files";
-            this.logsButton.UseVisualStyleBackColor = true;
-            this.logsButton.Click += new System.EventHandler(this.logsButton_Click);
+            this.userWhitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.userWhitelistButton.Location = new System.Drawing.Point(541, 194);
+            this.userWhitelistButton.Name = "userWhitelistButton";
+            this.userWhitelistButton.Size = new System.Drawing.Size(94, 22);
+            this.userWhitelistButton.TabIndex = 25;
+            this.userWhitelistButton.Text = "User Whitelist";
+            this.userWhitelistButton.UseVisualStyleBackColor = true;
+            this.userWhitelistButton.Click += new System.EventHandler(this.userWhitelistButton_Click);
             // 
-            // screenshotsButton
+            // userBlacklistButton
             // 
-            this.screenshotsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.screenshotsButton.Location = new System.Drawing.Point(512, 250);
-            this.screenshotsButton.Name = "screenshotsButton";
-            this.screenshotsButton.Size = new System.Drawing.Size(123, 22);
-            this.screenshotsButton.TabIndex = 24;
-            this.screenshotsButton.Text = "Show Screenshots";
-            this.screenshotsButton.UseVisualStyleBackColor = true;
-            this.screenshotsButton.Click += new System.EventHandler(this.screenshotsButton_Click);
+            this.userBlacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.userBlacklistButton.Location = new System.Drawing.Point(541, 222);
+            this.userBlacklistButton.Name = "userBlacklistButton";
+            this.userBlacklistButton.Size = new System.Drawing.Size(94, 22);
+            this.userBlacklistButton.TabIndex = 25;
+            this.userBlacklistButton.Text = "User Blacklist";
+            this.userBlacklistButton.UseVisualStyleBackColor = true;
+            this.userBlacklistButton.Click += new System.EventHandler(this.userBlacklistButton_Click);
+            // 
+            // logLinkLabel
+            // 
+            this.logLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.logLinkLabel.AutoSize = true;
+            this.logLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.logLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.logLinkLabel.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.logLinkLabel.Location = new System.Drawing.Point(383, 251);
+            this.logLinkLabel.Name = "logLinkLabel";
+            this.logLinkLabel.Size = new System.Drawing.Size(110, 18);
+            this.logLinkLabel.TabIndex = 26;
+            this.logLinkLabel.TabStop = true;
+            this.logLinkLabel.Text = "Show Log Files";
+            this.logLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.logLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logLinkLabel_LinkClicked);
+            // 
+            // screenshotsLinkLabel
+            // 
+            this.screenshotsLinkLabel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.screenshotsLinkLabel.AutoSize = true;
+            this.screenshotsLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.screenshotsLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
+            this.screenshotsLinkLabel.LinkColor = System.Drawing.SystemColors.HotTrack;
+            this.screenshotsLinkLabel.Location = new System.Drawing.Point(501, 251);
+            this.screenshotsLinkLabel.Name = "screenshotsLinkLabel";
+            this.screenshotsLinkLabel.Size = new System.Drawing.Size(134, 18);
+            this.screenshotsLinkLabel.TabIndex = 26;
+            this.screenshotsLinkLabel.TabStop = true;
+            this.screenshotsLinkLabel.Text = "Show Screenshots";
+            this.screenshotsLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.screenshotsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.screenshotsLinkLabel_LinkClicked);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
-            this.Controls.Add(this.screenshotsButton);
-            this.Controls.Add(this.logsButton);
+            this.Controls.Add(this.screenshotsLinkLabel);
+            this.Controls.Add(this.logLinkLabel);
+            this.Controls.Add(this.userBlacklistButton);
+            this.Controls.Add(this.userWhitelistButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.unloadEventLabel);
             this.Controls.Add(this.startupCheckBox);
@@ -396,8 +434,10 @@
         private System.Windows.Forms.CheckBox startupCheckBox;
         private System.Windows.Forms.Label unloadEventLabel;
         private System.Windows.Forms.Button updateButton;
-        private System.Windows.Forms.Button logsButton;
-        private System.Windows.Forms.Button screenshotsButton;
+        private System.Windows.Forms.Button userWhitelistButton;
+        private System.Windows.Forms.Button userBlacklistButton;
+        private System.Windows.Forms.LinkLabel logLinkLabel;
+        private System.Windows.Forms.LinkLabel screenshotsLinkLabel;
     }
 }
 

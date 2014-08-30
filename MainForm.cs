@@ -346,6 +346,42 @@ namespace GeDoSaToTool
             new TextForm("config\\whitelist.txt", true).Show();
         }
 
+        private void userWhitelistButton_Click(object sender, EventArgs e)
+        {
+            string fn = "config\\whitelist_user.txt";
+            if (!File.Exists(fn))
+            {
+                string defaultText = "# GeDoSaTo User Whitelist\n" +
+                                     "# One application name per line (application name = file name of the .exe without the .exe)\n" +
+                                     "# Wildcards supported (* = any sequence of characters, ? = any single character)\n" +
+                                     "# Unlike the global whitelist, this file will not be overwritten by updates\n\n" +
+                                     "# Format:\n" +
+                                     "# Exe File Name (or pattern) || Readable Name (optional)\n\n";
+                var stream = new StreamWriter(fn);
+                stream.Write(defaultText);
+                stream.Close();
+            }
+            new TextForm(fn, true).Show();
+        }
+
+        private void userBlacklistButton_Click(object sender, EventArgs e)
+        {
+            string fn = "config\\blacklist_user.txt";
+            if (!File.Exists(fn))
+            {
+                string defaultText = "# GeDoSaTo User Blacklist\n" +
+                                     "# One application name per line (application name = file name of the .exe without the .exe)\n" +
+                                     "# Wildcards supported (* = any sequence of characters, ? = any single character)\n" +
+                                     "# Unlike the global blacklist, this file will not be overwritten by updates\n\n" +
+                                     "# Format:\n" +
+                                     "# Exe File Name (or pattern) || Readable Name (optional)\n\n";
+                var stream = new StreamWriter(fn);
+                stream.Write(defaultText);
+                stream.Close();
+            }
+            new TextForm(fn, true).Show();
+        }
+
         private void blacklistButton_Click(object sender, EventArgs e)
         {
             new TextForm("config\\blacklist.txt", true).Show();
@@ -382,12 +418,12 @@ namespace GeDoSaToTool
             Close();
         }
 
-        private void logsButton_Click(object sender, EventArgs e)
+        private void logLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(Directory.GetCurrentDirectory() + "\\logs");
         }
 
-        private void screenshotsButton_Click(object sender, EventArgs e)
+        private void screenshotsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(Directory.GetCurrentDirectory() + "\\screens");
         }
