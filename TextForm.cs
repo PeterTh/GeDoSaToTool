@@ -25,16 +25,28 @@ namespace GeDoSaToTool
         TextStyle commentHeaderStyle = new TextStyle(Brushes.DarkOliveGreen, null, FontStyle.Italic | FontStyle.Bold);
 
         AutocompleteMenu popupMenu;
-        string fileName, startFn, keywordRegex = "BASE_KWD";
+        string fileName = "", startFn, keywordRegex = "BASE_KWD";
 
         List<string> keywords = new List<string>();
         bool isEditable, isShader, isList;
 
         private void LoadFile(string fn)
         {
+            if (fn == fileName) return;
+            if (!String.IsNullOrEmpty(fileName) && buttonSave.Enabled)
+            {
+                var res = MessageBox.Show("Do you want to save your changes to " + fileName + "?", "Query", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
+                if (res == DialogResult.Cancel)
+                {
+                    profileComboBox.SelectedItem = fileName;
+                    return;
+                }
+                if (res == DialogResult.Yes) buttonSave_Click(null, null);
+            }
             fileName = fn;
             Text = "GeDoSaTo Text " + (isEditable ? "Editor" : "Viewer") + " - " + fileName;
             fastColoredTextBox.Text = System.IO.File.ReadAllText(fileName);
+            fastColoredTextBox.ClearUndo();
             buttonSave.Enabled = false;
             userButton.Enabled = !fn.Contains("_user.");
         }
