@@ -212,22 +212,46 @@ namespace GeDoSaToTool
             LoadFile(profileComboBox.Text);
         }
 
+        private void addProfileToList(string profilefn)
+        {
+            string filter = filterTextBox.Text.Trim();
+            if (File.Exists(profilefn) && (filter.Length == 0 || Regex.IsMatch(profilefn, Regex.Escape(filter).Replace(" ", ".*"), RegexOptions.IgnoreCase)))
+            {
+                profileComboBox.Items.Add(profilefn);
+            }
+            var extension = Path.GetExtension(profilefn);
+            var userfn = profilefn.Replace(extension, "_user" + extension);
+            if (File.Exists(userfn) && (filter.Length == 0 || Regex.IsMatch(userfn, Regex.Escape(filter).Replace(" ", ".*"), RegexOptions.IgnoreCase)))
+            {
+                profileComboBox.Items.Add(userfn);
+            }
+        }
+
         private void filterTextBox_TextChanged(object sender, EventArgs e)
         {
             profileComboBox.Items.Clear();
-            string filter = filterTextBox.Text.Trim();
-            if (filter.Length == 0) profileComboBox.Items.Add(startFn);
+            addProfileToList(startFn);
             string justfn = Path.GetFileName(startFn);
             string dir = Path.GetDirectoryName(startFn).Replace("assets", "config");
             foreach (var d in Directory.EnumerateDirectories(dir))
             {
                 var profilefn = Path.Combine(d, justfn);
-                if (File.Exists(profilefn) && (filter.Length == 0 || Regex.IsMatch(profilefn, Regex.Escape(filter).Replace(" ",".*"), RegexOptions.IgnoreCase)))
-                {
-                    profileComboBox.Items.Add(profilefn);
-                }
+                addProfileToList(profilefn);
             }
             profileComboBox.SelectedIndex = 0;
+        }
+
+        private void selectProfile(string fn)
+        {
+            if (profileComboBox.Items.Contains(fn))
+            {
+                profileComboBox.SelectedItem = fn;
+            }
+            else
+            {
+                profileComboBox.Items.Insert(0, fn);
+                profileComboBox.SelectedIndex = 0;
+            }
         }
 
         private void userButton_Click(object sender, EventArgs e)
@@ -236,8 +260,7 @@ namespace GeDoSaToTool
             string userfn = fileName.Replace(ext, "_user" + ext);
             if (File.Exists(userfn))
             {
-                profileComboBox.Items.Insert(0, userfn);
-                profileComboBox.SelectedIndex = 0;
+                selectProfile(userfn);
                 return;
             }
             var result = MessageBox.Show("Creating a user profile for " + fileName
@@ -253,8 +276,7 @@ namespace GeDoSaToTool
                 var stream = new StreamWriter(userfn);
                 stream.Write(defaultText);
                 stream.Close();
-                profileComboBox.Items.Insert(0, userfn);
-                profileComboBox.SelectedIndex = 0;
+                selectProfile(userfn);
             }
         }
 
