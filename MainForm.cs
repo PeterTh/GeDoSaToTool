@@ -389,12 +389,12 @@ namespace GeDoSaToTool
 
         private void postButton_Click(object sender, EventArgs e)
         {
-            new TextForm("assets\\post.fx", true).Show();
+            new TextForm("assets\\dx9\\post.fx", true).Show();
         }
 
         private void altPostButton_Click(object sender, EventArgs e)
         {
-            new TextForm("assets\\post_asmodean.fx", true).Show();
+            new TextForm("assets\\dx9\\post_asmodean.fx", true).Show();
         }
 
         private void startupCheckBox_CheckedChanged(object sender, EventArgs e)

@@ -233,6 +233,7 @@ namespace GeDoSaToTool
             addProfileToList(startFn);
             string justfn = Path.GetFileName(startFn);
             string dir = Path.GetDirectoryName(startFn).Replace("assets", "config");
+            dir = dir.Replace("\\dx9", "");
             foreach (var d in Directory.EnumerateDirectories(dir))
             {
                 var profilefn = Path.Combine(d, justfn);
