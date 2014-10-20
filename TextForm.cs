@@ -212,34 +212,38 @@ namespace GeDoSaToTool
             LoadFile(profileComboBox.Text);
         }
 
-        private void addProfileToList(string profilefn)
+        private void addProfileToList(string profilefn, List<string> list)
         {
             string filter = filterTextBox.Text.Trim();
             if (File.Exists(profilefn) && (filter.Length == 0 || Regex.IsMatch(profilefn, Regex.Escape(filter).Replace(" ", ".*"), RegexOptions.IgnoreCase)))
             {
-                profileComboBox.Items.Add(profilefn);
+                list.Add(profilefn);
             }
             var extension = Path.GetExtension(profilefn);
             var userfn = profilefn.Replace(extension, "_user" + extension);
             if (File.Exists(userfn) && (filter.Length == 0 || Regex.IsMatch(userfn, Regex.Escape(filter).Replace(" ", ".*"), RegexOptions.IgnoreCase)))
             {
-                profileComboBox.Items.Add(userfn);
+                list.Add(userfn);
             }
         }
 
         private void filterTextBox_TextChanged(object sender, EventArgs e)
         {
-            profileComboBox.Items.Clear();
-            addProfileToList(startFn);
+            var newItems = new List<string>();
+            addProfileToList(startFn, newItems);
             string justfn = Path.GetFileName(startFn);
             string dir = Path.GetDirectoryName(startFn).Replace("assets", "config");
             dir = dir.Replace("\\dx9", "");
             foreach (var d in Directory.EnumerateDirectories(dir))
             {
                 var profilefn = Path.Combine(d, justfn);
-                addProfileToList(profilefn);
+                addProfileToList(profilefn, newItems);
             }
-            profileComboBox.SelectedIndex = 0;
+            if(newItems.Count > 0) {
+                profileComboBox.Items.Clear();
+                foreach(var i in newItems) profileComboBox.Items.Add(i);
+                profileComboBox.SelectedIndex = 0;
+            }
         }
 
         private void selectProfile(string fn)
