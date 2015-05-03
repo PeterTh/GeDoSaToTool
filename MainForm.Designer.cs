@@ -41,6 +41,7 @@
             this.blacklistRadioButton = new System.Windows.Forms.RadioButton();
             this.toolTip = new System.Windows.Forms.ToolTip(this.components);
             this.startupCheckBox = new System.Windows.Forms.CheckBox();
+            this.balloonCheckBox = new System.Windows.Forms.CheckBox();
             this.linkLabel = new System.Windows.Forms.LinkLabel();
             this.linkLabelReadme = new System.Windows.Forms.LinkLabel();
             this.linkLabelVersions = new System.Windows.Forms.LinkLabel();
@@ -49,19 +50,24 @@
             this.blacklistButton = new System.Windows.Forms.Button();
             this.whitelistButton = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.userBlacklistButton = new System.Windows.Forms.Button();
+            this.userWhitelistButton = new System.Windows.Forms.Button();
             this.postButton = new System.Windows.Forms.Button();
             this.altPostButton = new System.Windows.Forms.Button();
             this.unloadEventLabel = new System.Windows.Forms.Label();
             this.updateButton = new System.Windows.Forms.Button();
-            this.userWhitelistButton = new System.Windows.Forms.Button();
-            this.userBlacklistButton = new System.Windows.Forms.Button();
             this.logLinkLabel = new System.Windows.Forms.LinkLabel();
             this.screenshotsLinkLabel = new System.Windows.Forms.LinkLabel();
+            this.trayContextMenuStrip = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.trayMenuItemExit = new System.Windows.Forms.ToolStripMenuItem();
+            this.trayMenuItemRestore = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
+            this.trayContextMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // notifyIcon
             // 
+            this.notifyIcon.ContextMenuStrip = this.trayContextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
             this.notifyIcon.Text = "GeDoSaTo minimized\r\nDouble-click to restore.";
             this.notifyIcon.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.notifyIcon_MouseDoubleClick);
@@ -78,7 +84,7 @@
             // installLabel
             // 
             this.installLabel.AutoSize = true;
-            this.installLabel.Location = new System.Drawing.Point(12, 49);
+            this.installLabel.Location = new System.Drawing.Point(12, 37);
             this.installLabel.Name = "installLabel";
             this.installLabel.Size = new System.Drawing.Size(13, 13);
             this.installLabel.TabIndex = 1;
@@ -111,7 +117,7 @@
             // 
             this.reportLabel.AutoSize = true;
             this.reportLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.reportLabel.Location = new System.Drawing.Point(12, 83);
+            this.reportLabel.Location = new System.Drawing.Point(12, 59);
             this.reportLabel.Name = "reportLabel";
             this.reportLabel.Size = new System.Drawing.Size(66, 13);
             this.reportLabel.TabIndex = 4;
@@ -120,7 +126,7 @@
             // globalHotkeyLabel
             // 
             this.globalHotkeyLabel.AutoSize = true;
-            this.globalHotkeyLabel.Location = new System.Drawing.Point(12, 117);
+            this.globalHotkeyLabel.Location = new System.Drawing.Point(12, 81);
             this.globalHotkeyLabel.Name = "globalHotkeyLabel";
             this.globalHotkeyLabel.Size = new System.Drawing.Size(74, 13);
             this.globalHotkeyLabel.TabIndex = 5;
@@ -130,7 +136,7 @@
             // 
             this.whitelistRadioButton.AutoSize = true;
             this.whitelistRadioButton.Checked = true;
-            this.whitelistRadioButton.Location = new System.Drawing.Point(15, 19);
+            this.whitelistRadioButton.Location = new System.Drawing.Point(11, 19);
             this.whitelistRadioButton.Name = "whitelistRadioButton";
             this.whitelistRadioButton.Size = new System.Drawing.Size(87, 17);
             this.whitelistRadioButton.TabIndex = 6;
@@ -143,7 +149,7 @@
             // blacklistRadioButton
             // 
             this.blacklistRadioButton.AutoSize = true;
-            this.blacklistRadioButton.Location = new System.Drawing.Point(15, 42);
+            this.blacklistRadioButton.Location = new System.Drawing.Point(11, 41);
             this.blacklistRadioButton.Name = "blacklistRadioButton";
             this.blacklistRadioButton.Size = new System.Drawing.Size(86, 17);
             this.blacklistRadioButton.TabIndex = 7;
@@ -155,7 +161,7 @@
             // startupCheckBox
             // 
             this.startupCheckBox.AutoSize = true;
-            this.startupCheckBox.Location = new System.Drawing.Point(203, 253);
+            this.startupCheckBox.Location = new System.Drawing.Point(15, 251);
             this.startupCheckBox.Name = "startupCheckBox";
             this.startupCheckBox.Size = new System.Drawing.Size(174, 17);
             this.startupCheckBox.TabIndex = 21;
@@ -163,6 +169,18 @@
             this.toolTip.SetToolTip(this.startupCheckBox, "NOTE: Only works if UAC is disabled!");
             this.startupCheckBox.UseVisualStyleBackColor = true;
             this.startupCheckBox.CheckedChanged += new System.EventHandler(this.startupCheckBox_CheckedChanged);
+            // 
+            // balloonCheckBox
+            // 
+            this.balloonCheckBox.AutoSize = true;
+            this.balloonCheckBox.Location = new System.Drawing.Point(15, 228);
+            this.balloonCheckBox.Name = "balloonCheckBox";
+            this.balloonCheckBox.Size = new System.Drawing.Size(162, 17);
+            this.balloonCheckBox.TabIndex = 27;
+            this.balloonCheckBox.Text = "Hide balloon when minimized";
+            this.toolTip.SetToolTip(this.balloonCheckBox, "NOTE: Only works if UAC is disabled!");
+            this.balloonCheckBox.UseVisualStyleBackColor = true;
+            this.balloonCheckBox.CheckedChanged += new System.EventHandler(this.balloonCheckBox_CheckedChanged);
             // 
             // linkLabel
             // 
@@ -215,7 +233,7 @@
             // settingsButton
             // 
             this.settingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.settingsButton.Location = new System.Drawing.Point(203, 194);
+            this.settingsButton.Location = new System.Drawing.Point(251, 219);
             this.settingsButton.Name = "settingsButton";
             this.settingsButton.Size = new System.Drawing.Size(123, 22);
             this.settingsButton.TabIndex = 11;
@@ -226,7 +244,7 @@
             // keybindingsButton
             // 
             this.keybindingsButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.keybindingsButton.Location = new System.Drawing.Point(203, 222);
+            this.keybindingsButton.Location = new System.Drawing.Point(251, 247);
             this.keybindingsButton.Name = "keybindingsButton";
             this.keybindingsButton.Size = new System.Drawing.Size(123, 22);
             this.keybindingsButton.TabIndex = 12;
@@ -237,7 +255,7 @@
             // blacklistButton
             // 
             this.blacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.blacklistButton.Location = new System.Drawing.Point(461, 222);
+            this.blacklistButton.Location = new System.Drawing.Point(101, 38);
             this.blacklistButton.Name = "blacklistButton";
             this.blacklistButton.Size = new System.Drawing.Size(74, 22);
             this.blacklistButton.TabIndex = 14;
@@ -248,7 +266,7 @@
             // whitelistButton
             // 
             this.whitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.whitelistButton.Location = new System.Drawing.Point(461, 194);
+            this.whitelistButton.Location = new System.Drawing.Point(101, 14);
             this.whitelistButton.Name = "whitelistButton";
             this.whitelistButton.Size = new System.Drawing.Size(74, 22);
             this.whitelistButton.TabIndex = 13;
@@ -261,17 +279,43 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.whitelistRadioButton);
             this.groupBox1.Controls.Add(this.blacklistRadioButton);
-            this.groupBox1.Location = new System.Drawing.Point(12, 194);
+            this.groupBox1.Controls.Add(this.userBlacklistButton);
+            this.groupBox1.Controls.Add(this.whitelistButton);
+            this.groupBox1.Controls.Add(this.userWhitelistButton);
+            this.groupBox1.Controls.Add(this.blacklistButton);
+            this.groupBox1.Location = new System.Drawing.Point(360, 142);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(123, 69);
+            this.groupBox1.Size = new System.Drawing.Size(272, 69);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Whitelisting Options";
+            this.groupBox1.Text = "Whitelisting";
+            // 
+            // userBlacklistButton
+            // 
+            this.userBlacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.userBlacklistButton.Location = new System.Drawing.Point(181, 38);
+            this.userBlacklistButton.Name = "userBlacklistButton";
+            this.userBlacklistButton.Size = new System.Drawing.Size(85, 22);
+            this.userBlacklistButton.TabIndex = 25;
+            this.userBlacklistButton.Text = "User Blacklist";
+            this.userBlacklistButton.UseVisualStyleBackColor = true;
+            this.userBlacklistButton.Click += new System.EventHandler(this.userBlacklistButton_Click);
+            // 
+            // userWhitelistButton
+            // 
+            this.userWhitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.userWhitelistButton.Location = new System.Drawing.Point(181, 14);
+            this.userWhitelistButton.Name = "userWhitelistButton";
+            this.userWhitelistButton.Size = new System.Drawing.Size(85, 22);
+            this.userWhitelistButton.TabIndex = 25;
+            this.userWhitelistButton.Text = "User Whitelist";
+            this.userWhitelistButton.UseVisualStyleBackColor = true;
+            this.userWhitelistButton.Click += new System.EventHandler(this.userWhitelistButton_Click);
             // 
             // postButton
             // 
             this.postButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.postButton.Location = new System.Drawing.Point(332, 194);
+            this.postButton.Location = new System.Drawing.Point(380, 219);
             this.postButton.Name = "postButton";
             this.postButton.Size = new System.Drawing.Size(123, 22);
             this.postButton.TabIndex = 19;
@@ -282,7 +326,7 @@
             // altPostButton
             // 
             this.altPostButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.altPostButton.Location = new System.Drawing.Point(332, 222);
+            this.altPostButton.Location = new System.Drawing.Point(380, 247);
             this.altPostButton.Name = "altPostButton";
             this.altPostButton.Size = new System.Drawing.Size(123, 22);
             this.altPostButton.TabIndex = 20;
@@ -293,7 +337,7 @@
             // unloadEventLabel
             // 
             this.unloadEventLabel.AutoSize = true;
-            this.unloadEventLabel.Location = new System.Drawing.Point(12, 151);
+            this.unloadEventLabel.Location = new System.Drawing.Point(12, 103);
             this.unloadEventLabel.Name = "unloadEventLabel";
             this.unloadEventLabel.Size = new System.Drawing.Size(72, 13);
             this.unloadEventLabel.TabIndex = 22;
@@ -302,35 +346,13 @@
             // updateButton
             // 
             this.updateButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.updateButton.Location = new System.Drawing.Point(512, 154);
+            this.updateButton.Location = new System.Drawing.Point(509, 105);
             this.updateButton.Name = "updateButton";
             this.updateButton.Size = new System.Drawing.Size(123, 34);
             this.updateButton.TabIndex = 23;
             this.updateButton.Text = "Update";
             this.updateButton.UseVisualStyleBackColor = true;
             this.updateButton.Click += new System.EventHandler(this.updateButton_Click);
-            // 
-            // userWhitelistButton
-            // 
-            this.userWhitelistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.userWhitelistButton.Location = new System.Drawing.Point(541, 194);
-            this.userWhitelistButton.Name = "userWhitelistButton";
-            this.userWhitelistButton.Size = new System.Drawing.Size(94, 22);
-            this.userWhitelistButton.TabIndex = 25;
-            this.userWhitelistButton.Text = "User Whitelist";
-            this.userWhitelistButton.UseVisualStyleBackColor = true;
-            this.userWhitelistButton.Click += new System.EventHandler(this.userWhitelistButton_Click);
-            // 
-            // userBlacklistButton
-            // 
-            this.userBlacklistButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.userBlacklistButton.Location = new System.Drawing.Point(541, 222);
-            this.userBlacklistButton.Name = "userBlacklistButton";
-            this.userBlacklistButton.Size = new System.Drawing.Size(94, 22);
-            this.userBlacklistButton.TabIndex = 25;
-            this.userBlacklistButton.Text = "User Blacklist";
-            this.userBlacklistButton.UseVisualStyleBackColor = true;
-            this.userBlacklistButton.Click += new System.EventHandler(this.userBlacklistButton_Click);
             // 
             // logLinkLabel
             // 
@@ -340,7 +362,7 @@
             this.logLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.logLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.logLinkLabel.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.logLinkLabel.Location = new System.Drawing.Point(383, 251);
+            this.logLinkLabel.Location = new System.Drawing.Point(509, 220);
             this.logLinkLabel.Name = "logLinkLabel";
             this.logLinkLabel.Size = new System.Drawing.Size(110, 18);
             this.logLinkLabel.TabIndex = 26;
@@ -357,7 +379,7 @@
             this.screenshotsLinkLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.screenshotsLinkLabel.LinkBehavior = System.Windows.Forms.LinkBehavior.HoverUnderline;
             this.screenshotsLinkLabel.LinkColor = System.Drawing.SystemColors.HotTrack;
-            this.screenshotsLinkLabel.Location = new System.Drawing.Point(501, 251);
+            this.screenshotsLinkLabel.Location = new System.Drawing.Point(509, 248);
             this.screenshotsLinkLabel.Name = "screenshotsLinkLabel";
             this.screenshotsLinkLabel.Size = new System.Drawing.Size(134, 18);
             this.screenshotsLinkLabel.TabIndex = 26;
@@ -366,23 +388,42 @@
             this.screenshotsLinkLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.screenshotsLinkLabel.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.screenshotsLinkLabel_LinkClicked);
             // 
+            // trayContextMenuStrip
+            // 
+            this.trayContextMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.trayMenuItemExit,
+            this.trayMenuItemRestore});
+            this.trayContextMenuStrip.Name = "trayContextMenuStrip";
+            this.trayContextMenuStrip.Size = new System.Drawing.Size(114, 48);
+            // 
+            // trayMenuItemExit
+            // 
+            this.trayMenuItemExit.Name = "trayMenuItemExit";
+            this.trayMenuItemExit.Size = new System.Drawing.Size(113, 22);
+            this.trayMenuItemExit.Text = "Exit";
+            this.trayMenuItemExit.Click += new System.EventHandler(this.trayMenuItemExit_Click);
+            // 
+            // trayMenuItemRestore
+            // 
+            this.trayMenuItemRestore.Name = "trayMenuItemRestore";
+            this.trayMenuItemRestore.Size = new System.Drawing.Size(113, 22);
+            this.trayMenuItemRestore.Text = "Restore";
+            this.trayMenuItemRestore.Click += new System.EventHandler(this.trayMenuItemRestore_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(648, 329);
+            this.Controls.Add(this.balloonCheckBox);
             this.Controls.Add(this.screenshotsLinkLabel);
             this.Controls.Add(this.logLinkLabel);
-            this.Controls.Add(this.userBlacklistButton);
-            this.Controls.Add(this.userWhitelistButton);
             this.Controls.Add(this.updateButton);
             this.Controls.Add(this.unloadEventLabel);
             this.Controls.Add(this.startupCheckBox);
             this.Controls.Add(this.altPostButton);
             this.Controls.Add(this.postButton);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.blacklistButton);
-            this.Controls.Add(this.whitelistButton);
             this.Controls.Add(this.keybindingsButton);
             this.Controls.Add(this.settingsButton);
             this.Controls.Add(this.linkLabelVersions);
@@ -404,6 +445,7 @@
             this.Resize += new System.EventHandler(this.MainForm_Resize);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.trayContextMenuStrip.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -438,6 +480,10 @@
         private System.Windows.Forms.Button userBlacklistButton;
         private System.Windows.Forms.LinkLabel logLinkLabel;
         private System.Windows.Forms.LinkLabel screenshotsLinkLabel;
+        private System.Windows.Forms.CheckBox balloonCheckBox;
+        private System.Windows.Forms.ContextMenuStrip trayContextMenuStrip;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuItemExit;
+        private System.Windows.Forms.ToolStripMenuItem trayMenuItemRestore;
     }
 }
 

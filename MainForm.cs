@@ -144,8 +144,12 @@ namespace GeDoSaToTool
 
 
             // check autostart state
-            Microsoft.Win32.RegistryKey key = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
-            if (key.GetValue("GeDoSaToTool") != null) startupCheckBox.Checked = true;
+            Microsoft.Win32.RegistryKey skey = Microsoft.Win32.Registry.CurrentUser.OpenSubKey(AUTOSTART_REG_PATH, true);
+            if (skey.GetValue("GeDoSaToTool") != null) startupCheckBox.Checked = true;
+
+            // check balloon state
+            var balloon = Microsoft.Win32.Registry.GetValue(REG_PATH, "HideBalloon", false);
+            if (balloon != null) balloonCheckBox.Checked = (string)balloon == "True";
 
             // disable dangling alternative injection (from improper shutdown)
             string dllfn = Directory.GetCurrentDirectory() + "\\" + "GeDoSaTo.dll";
@@ -235,7 +239,10 @@ namespace GeDoSaToTool
             if (this.WindowState == FormWindowState.Minimized)
             {
                 notifyIcon.Visible = true;
-                notifyIcon.ShowBalloonTip(3000, "GeDoSaTo Minimized", "Double-click to restore", ToolTipIcon.Info);
+                if (!balloonCheckBox.Checked)
+                {
+                    notifyIcon.ShowBalloonTip(3000, "GeDoSaTo Minimized", "Double-click to restore", ToolTipIcon.Info);
+                }
                 this.ShowInTaskbar = false;
                 new MessageWindow(this);
             }
@@ -410,6 +417,11 @@ namespace GeDoSaToTool
             }
         }
 
+        private void balloonCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            Microsoft.Win32.Registry.SetValue(REG_PATH, "HideBalloon", balloonCheckBox.Checked);
+        }
+
         private void updateButton_Click(object sender, EventArgs e)
         {
             Process update = new Process();
@@ -426,6 +438,15 @@ namespace GeDoSaToTool
         private void screenshotsLinkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             Process.Start(Directory.GetCurrentDirectory() + "\\screens");
+        }
+
+        private void trayMenuItemExit_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+        private void trayMenuItemRestore_Click(object sender, EventArgs e)
+        {
+            notifyIcon_MouseDoubleClick(sender, null);
         }
     }
 }
