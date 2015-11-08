@@ -10,6 +10,7 @@ using System.Threading;
 using System.Net;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
+using System.Text;
 
 namespace GeDoSaToTool
 {
@@ -45,6 +46,12 @@ namespace GeDoSaToTool
             WindowsIdentity identity = WindowsIdentity.GetCurrent();
             WindowsPrincipal principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
+        }
+
+        private string GetShimDllPath()
+        {
+            string dllfn = Directory.GetCurrentDirectory() + "\\" + SHIM_DLL_NAME;
+            return Native.GetShortPath(dllfn);
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -105,7 +112,7 @@ namespace GeDoSaToTool
             if(balloon != null) balloonCheckBox.Checked = (string)balloon == "True";
 
             // disable dangling alternative injection (from improper shutdown)
-            string dllfn = Directory.GetCurrentDirectory() + "\\" + SHIM_DLL_NAME;
+            string dllfn = GetShimDllPath();
             string initval = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
             string val = initval.Replace(dllfn + ",", "");
             val = val.Replace(dllfn, "");
@@ -200,7 +207,7 @@ namespace GeDoSaToTool
         {
             try {
                 // reg injection
-                string dllfn = Directory.GetCurrentDirectory() + "\\" + SHIM_DLL_NAME;
+                string dllfn = GetShimDllPath();
                 appinitString = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
                 string newAppinit = appinitString.Length > 0 ? dllfn + "," + appinitString : dllfn;
                 Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", newAppinit);
@@ -356,6 +363,19 @@ class Native
     [DllImport("user32")]
     public static extern int RegisterWindowMessage(string message);
 
+    // Path
+
+    const int MAX_PATH = 260;
+
+    [DllImport("kernel32.dll", CharSet = CharSet.Auto)]
+    static extern int GetShortPathName(
+        [MarshalAs(UnmanagedType.LPTStr)]
+            string path,
+        [MarshalAs(UnmanagedType.LPTStr)]
+            StringBuilder shortPath,
+        int shortPathLength
+        );
+
     // GeDoSaTo
 
     [UnmanagedFunctionPointer(CallingConvention.StdCall)]
@@ -422,5 +442,12 @@ class Native
             return "";
         }
         return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(ptr);
+    }
+
+    public static string GetShortPath(string path)
+    {
+        var shortPath = new StringBuilder(MAX_PATH);
+        GetShortPathName(path, shortPath, MAX_PATH);
+        return shortPath.ToString();
     }
 }
