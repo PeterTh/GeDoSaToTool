@@ -19,6 +19,7 @@ namespace GeDoSaToTool
         const string REG_PATH = @"HKEY_LOCAL_MACHINE\SOFTWARE\Durante\GeDoSaTo";
         const string INJECTION_REG_PATH = @"HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows";
         const string AUTOSTART_REG_PATH = @"SOFTWARE\Microsoft\Windows\CurrentVersion\Run";
+        const string SECUREBOOT_REG_PATH = @"HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Control\SecureBoot\State";
 
         const string SHIM_DLL_NAME = @"gedoshim.dll";
 
@@ -47,6 +48,11 @@ namespace GeDoSaToTool
             WindowsPrincipal principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
+        private bool IsSecureBootEnabled()
+        {
+            var secureboot = Microsoft.Win32.Registry.GetValue(SECUREBOOT_REG_PATH, "UEFISecureBootEnabled", 0);
+            return secureboot!=null && (int)secureboot!=0;
+        }
 
         private string GetShimDllPath()
         {
@@ -67,6 +73,10 @@ namespace GeDoSaToTool
                 MessageBox.Show("Please run GeDoSaToTool as Administrator (to enable dll injection).",
                     "Privilege Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Close();
+            }
+            if(IsSecureBootEnabled()) {
+                MessageBox.Show("It appears that you are using a Windows 8 or 10 system with UEFI secure boot enabled. This prevents GeDoSaTo from working correctly. Please see the Readme for details.",
+                    "Secure Boot Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             try {
