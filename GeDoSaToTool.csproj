@@ -146,7 +146,7 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>"C:\Program Files (x86)\Microsoft\ILMerge\ILmerge.exe" $(TargetPath) "C:\dev\FastColoredTextBox\Binary\FastColoredTextBox.dll" /out:"C:\Users\Peter\Documents\GitHub\gedosato\pack\GeDoSaToTool.exe" /targetplatform:v4,"C:\Windows\Microsoft.NET\Framework\v4.0.30319" /ndebug</PostBuildEvent>
+    <PostBuildEvent>"D:\Program Files (x86)\Microsoft\ILMerge\ILmerge.exe" $(TargetPath) "D:\dev\FastColoredTextBox\Binary\FastColoredTextBox.dll" /out:"D:\Users\Peter\Documents\GitHub\gedosato\pack\GeDoSaToTool.exe" /targetplatform:v4,"D:\Windows\Microsoft.NET\Framework\v4.0.30319" /ndebug</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -70,7 +70,7 @@
             this.fastColoredTextBox.IsReplaceMode = false;
             this.fastColoredTextBox.Location = new System.Drawing.Point(0, 0);
             this.fastColoredTextBox.Name = "fastColoredTextBox";
-            this.fastColoredTextBox.Paddings = new System.Windows.Forms.Padding(0);
+            this.fastColoredTextBox.Paddings = new System.Windows.Forms.Padding(4);
             this.fastColoredTextBox.SelectionColor = System.Drawing.Color.FromArgb(((int)(((byte)(60)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))), ((int)(((byte)(255)))));
             this.fastColoredTextBox.ShowLineNumbers = false;
             this.fastColoredTextBox.Size = new System.Drawing.Size(864, 531);

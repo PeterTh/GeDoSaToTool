@@ -57,7 +57,7 @@ namespace GeDoSaToTool
             isEditable = editable;
             startFn = fn;
             isShader = Path.GetExtension(fn) == ".fx";
-            isList = Path.GetFileName(fn).Contains("list.txt");
+            isList = Path.GetFileName(fn).Contains("list") && Path.GetFileName(fn).Contains(".txt");
 
             // generate KW regex
             if (kws != null) keywords = kws;
