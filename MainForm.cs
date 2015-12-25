@@ -57,7 +57,13 @@ namespace GeDoSaToTool
         private string GetShimDllPath()
         {
             string dllfn = Directory.GetCurrentDirectory() + "\\" + SHIM_DLL_NAME;
-            return Native.GetShortPath(dllfn);
+            string shortname = Native.GetShortPath(dllfn);
+            if(shortname.Length == 0) {
+                MessageBox.Show("Could not find a short path for the dll install directory " + dllfn + ". If you experience any issues, try a different installation directory.", 
+                    "Path Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return dllfn;
+            }
+            return shortname;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -123,6 +129,11 @@ namespace GeDoSaToTool
 
             // disable dangling alternative injection (from improper shutdown)
             string dllfn = GetShimDllPath();
+            if(dllfn.Length == 0) {
+                MessageBox.Show("Could not determine dll directory. Please reinstall to a different location.",
+                    "Installation Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Close();
+            }
             string initval = (string)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "AppInit_DLLs", "");
             string val = initval.Replace(dllfn + ",", "");
             val = val.Replace(dllfn, "");
