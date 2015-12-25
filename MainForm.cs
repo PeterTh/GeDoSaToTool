@@ -222,6 +222,9 @@ namespace GeDoSaToTool
                 string newAppinit = appinitString.Length > 0 ? dllfn + "," + appinitString : dllfn;
                 Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "AppInit_DLLs", newAppinit);
                 Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "LoadAppInit_DLLs", 1);
+                if((int)Microsoft.Win32.Registry.GetValue(INJECTION_REG_PATH, "RequireSignedAppInit_DLLs", 0) != 0) {
+                    Microsoft.Win32.Registry.SetValue(INJECTION_REG_PATH, "RequireSignedAppInit_DLLs", 0);
+                }
                 // report success
                 reportLabel.Text = "Activated";
                 deactivateButton.Enabled = true;
